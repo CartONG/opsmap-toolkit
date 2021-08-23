@@ -1,0 +1,65 @@
+{
+  "title": "Opsmap",
+  "infosAdmin1": "State",
+  "infosAdmin2": "City",
+  "infosSiteType": "Site type",
+  "infosSitePlanned": "Planned",
+  "infosSiteSpontanneous": "Spontanneous",
+  "manageBy": "Manage By",
+  "selectText": "Select a",
+  "survey": "Survey",
+  "camp": "Camp",
+  "dashboardCredits": "The OPSMAP dashboard is an opensource solution under the MIT license",
+  "appVersion": "Version",
+  "ochaCredits": "The Humanitarian font pictograms are licensed under the CC BY 3.0",
+  "footer": {
+    "moreInfos": "About Opsmap",
+    "moreInfosText":  "OPSMAP aims at providing humanitarian actors essential information on services at site level to improve humanitarian assistance in IDP sites.<br/>Information is collected through key informants at each IDP site using mobile data collection tool based or on using traditional format of survey.<br/>The dashboard permit to quickly gain insights into collected data, by providing a site profile. <br/>Users can get insights, and use them identify items that require urgent action, and properly purposing resources.",
+    "partnerLed": "Cluster Lead",
+    "partnerCoordination": "Coordination and IM support",
+    "partnerFieldwork": "Fieldwork",
+    "partnerWebdev": "Webdev"
+  },
+  "trafficlight": {
+    "ok": "OK",
+    "warning":  "Warning",
+    "danger": "Danger",
+    "critical": "Critical",
+    "other": "Other"
+  },
+  "main": {
+    "switchPage": "Switch Page",
+    "title": "Site tracker"
+  },
+  "home": {
+    "lastUpdate": "Last update",
+    "moreInfosTitle": "More Information",
+    "combosTitle": "Zoom on the map"
+  },
+  "site": {
+    "exportPreffix": "Export as",
+    "infosCoordinates": "gps coordinates",
+    "hideUnanswered": "Hide unanswered entries",
+    "subtitlePlaceholder": "No Site Selected",
+    "extraTools": "Extra Tools",
+    "datePreffix": "Report"
+  },
+  "charts": {
+    "agePyramidTitle": "Age Pyramid",
+    "doughnutTitle": "Specific Group",
+    "polarTitle": "Types",
+    "titleY": "Age Range",
+    "titleX": "Population",
+    "female": "Female",
+    "male": "Male"
+  },
+  "map": {
+    "legendPlanned": "Planned site",
+    "legendSpontaneous": "Spontaneous site",
+    "legendBasemaps": "Select a basemap",
+    "legendZoomIn": "Zoom in",
+    "legendZoomOut": "Zoom out",
+    "legendBbox": "Default Extent",
+    "legendFilters": "Show / Hide legend"
+  }
+}

@@ -1,0 +1,260 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Opsmap Toolkit Documentation</title>
+	<meta name="description" content="Documentation for Opsmap Toolkit Documentation">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+	<script async src="assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">Opsmap Toolkit Documentation</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<h1>Opsmap Toolkit Documentation</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#kind-of-tech-specs" id="kind-of-tech-specs" style="color: inherit; text-decoration: none;">
+					<h1>Kind of tech specs</h1>
+				</a>
+				<p>This document is aimed at helping developer understand this project.</p>
+				<p>At this point, it is just a place to drop every infos relatives to the project.</p>
+				<p>This document is <strong>NOT</strong> a comitment to anything. It is <strong>NOT</strong> an official technical specifications.</p>
+				<p>Resources:</p>
+				<ul>
+					<li><a href="https://cloud.cartong.org/s/zgsDFfpjTNHseZS">nextcloud</a></li>
+					<li><a href="https://cartong.teamwork.com/#/projects/233096/overview/summary">teamwork</a> : opsmap is a task of gds, containing a list of subtasks.</li>
+					<li><a href="https://cartong.teamwork.com/#/projects/500913/tasks">teamwork new</a> : migrating dev task to a specific opsmap project.</li>
+					<li><a href="https://gitlab.cartong.org/HCR/opsmap">gitlab</a> : opsmap is a group, with all the opsmap related projects</li>
+				</ul>
+				<p>People:</p>
+				<ul>
+					<li>Pole Manager: Sylvie de Laborderie</li>
+					<li>PO: Maelle Aubert</li>
+					<li>Devs: Joaquim Martin, Olivier Ribiere, Etienne Delclaux (Backup: Miguel Moreno)</li>
+				</ul>
+				<p>Tech summary:</p>
+				<p>Front only, based on <a href="https://vuejs.org">Vue.js v2</a> + <a href="https://www.typescriptlang.org">Typescript</a> + class-style Vue components.
+				The map engine is <a href="https://www.mapbox.com">Mapbox</a>.</p>
+				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+					<h2>Usage</h2>
+				</a>
+				<ul>
+					<li><code>npm run build-lib</code> --&gt; generates the lib</li>
+					<li><code>npm run build</code> --&gt; generates the app (no lib)</li>
+					<li><code>npm run serve</code> --&gt; generates the app (no lib) and start localhost</li>
+					<li><code>npm run doc</code> --&gt; generates the doc in the docs folder</li>
+				</ul>
+				<p>The doc is generated using TypeDoc. It doesn&#39;t seems to be ok with vuejs components. We&#39;ll see.</p>
+				<a href="#project-architecture" id="project-architecture" style="color: inherit; text-decoration: none;">
+					<h2>Project architecture</h2>
+				</a>
+				<p>For the seek of opsmap-tookit related files, variables, etc. , we will use the following prefix: TK. (ex: TKHellowWorld).</p>
+				<p>The code will be divide into libraries, packages, etc. The idea is to encapsulate stuff as musch as we can.</p>
+				<p>This code is aimed at being integrated in a two elements system:</p>
+				<pre><code class="language-mermaid">classDiagram
+      opsmap ..&gt; opsmapToolKit
+end
+</code></pre>
+				<ul>
+					<li><strong>opsmap</strong>: application</li>
+					<li><strong>opsmap-toolKit</strong>: Vuejs components + javascript (pdf, csv, kobo, etc. ) package</li>
+				</ul>
+				<a href="#current-project-description" id="current-project-description" style="color: inherit; text-decoration: none;">
+					<h2>Current project description</h2>
+				</a>
+				<p>This project holds two differents projects:</p>
+				<ul>
+					<li>a lib declaration
+					The entry point is entry-point-lib.ts of the lib.</li>
+				</ul>
+				<p>The objective is to provide multiple components and tools to a typical oppsmap, the standard opsmap.</p>
+				<ul>
+					<li>an app implementation
+					The two entry points are entry-point-app.ts and entry-point-app.vue</li>
+				</ul>
+				<p>The objective is to provide a way to test development inside the lib before porting them to the app. This app is for development only !</p>
+				<p>We observe the following folder structure:</p>
+				<pre><code class="language-bash"><span style="color: #000000">src</span>
+<span style="color: #000000">├──components</span>
+<span style="color: #000000">│   ├── TKCampSelector</span>
+<span style="color: #000000">│   │     ├── TKCampSelector.vue</span>
+<span style="color: #000000">│   │     ├── TKCampSelectorComboBoxes.vue</span>
+<span style="color: #000000">│   │     └── TKCampSelectorMap.vue</span>
+<span style="color: #000000">│   ├── TKFooter.vue</span>
+<span style="color: #000000">│   └── TKHeader.vue</span>
+<span style="color: #000000">├──plugins</span>
+<span style="color: #000000">│   └── vuetify.ts</span>
+<span style="color: #000000">└──types</span>
+<span style="color: #000000">    └── Camp.ts</span>
+
+</code></pre>
+				<p>We observe the following behavior:</p>
+				<ul>
+					<li>components: the folder + file structure follows the components tree in the UI</li>
+					<li>plugins: auto, needed by vuetify</li>
+					<li>types: attempt to structure. It&#39;s like a domain folder. It holds the domain related competences.</li>
+				</ul>
+				<p>This architecture needs to be reshaped. This is a bit too intuitive.</p>
+				<a href="#licences" id="licences" style="color: inherit; text-decoration: none;">
+					<h2>Licences</h2>
+				</a>
+				<p>The licence of this project is specified in LICENCE.md.
+				The 3rd Party licences are mentionned in LICENCE-3RD-PARTY.md.</p>
+				<a href="#used-in-this-project" id="used-in-this-project" style="color: inherit; text-decoration: none;">
+					<h3>Used in this project</h3>
+				</a>
+				<ul>
+					<li>Front<ul>
+							<li>Vue.js v2: <a href="https://vuejs.org"><em>MIT Licence</em></a></li>
+							<li>Typescript: <a href="https://github.com/microsoft/TypeScript/blob/master/LICENSE.txt"><em>Apache v2.0</em></a></li>
+							<li>Mapbox: <em>TBD</em></li>
+							<li>Chart.js: <a href="https://www.chartjs.org/docs/latest/notes/license.html"><em>MIT Licence</em></a></li>
+							<li>PDF.js: <a href="https://github.com/mozilla/pdf.js/blob/master/LICENSE"><em>MIT Licence</em></a></li>
+							<li>html2canvas: <a href="https://github.com/niklasvh/html2canvas/blob/master/LICENSE"><em>MIT Licence</em></a></li>
+						</ul>
+					</li>
+					<li>Tooling<ul>
+							<li>TypeDoc: doc engine <a href="https://github.com/TypeStrong/typedoc/blob/master/LICENSE"><em>Apache 2.0</em></a></li>
+							<li>Jest: <a href="https://pypi.org/project/sphinx-js/"><em>MIT Licence</em></a></li>
+							<li>sinonjs: <a href="https://github.com/sinonjs/sinon/blob/master/LICENSE"><em>BSD Licence</em></a></li>
+							<li>Cypress.io test runner: [_MIT Licence_](MIT licence)
+							Others api used:</li>
+						</ul>
+					</li>
+					<li><a href="https://vuejs.org">Vue.js v2</a> + <a href="https://www.typescriptlang.org">Typescript</a></li>
+					<li><a href="https://www.mapbox.com">Mapbox</a>: map engine (could try OpenLayers or MapLibre)</li>
+					<li><a href="https://www.chartjs.org">Chart.js</a></li>
+					<li><a href="https://mozilla.github.io/pdf.js/">PDF.js</a> + <a href="https://html2canvas.hertzen.com">html2canvas</a>: PDF extraction</li>
+					<li><a href="https://typedoc.org/">TypeDoc</a>: doc engine</li>
+					<li><a href="https://jestjs.io">Jest</a>: testing framework</li>
+					<li><a href="https://sinonjs.org">sinonjs</a>: improvement of Jest testing framework</li>
+					<li><a href="https://www.cypress.io">Cypress.io</a>: end to end testing</li>
+				</ul>
+				<a href="#mit-licence" id="mit-licence" style="color: inherit; text-decoration: none;">
+					<h4><a href="https://en.wikipedia.org/wiki/MIT_License">MIT Licence</a></h4>
+				</a>
+				<p>Permissive. Do whatever you want, only if:</p>
+				<blockquote>
+					<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+				</blockquote>
+				<a href="#apache-v2" id="apache-v2" style="color: inherit; text-decoration: none;">
+					<h4><a href="https://www.apache.org/licenses/LICENSE-2.0">Apache V2</a></h4>
+				</a>
+				<p>Permissive. Do whatever you want, only if:</p>
+				<blockquote>
+					<p>You should include a copy of the Apache License, typically in a file called LICENSE, in your work, and consider also including a NOTICE file.</p>
+				</blockquote>
+				<a href="#bsd-licence" id="bsd-licence" style="color: inherit; text-decoration: none;">
+					<h4><a href="https://opensource.org/licenses/BSD-3-Clause">BSD Licence</a></h4>
+				</a>
+				<p>Persmissive. Do whatever you want, only if:</p>
+				<blockquote>
+					<p>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</p>
+					<p>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</p>
+					<p>Neither the name of Christian Johansen nor the names of his contributors may be used to endorse or promote products derived from this software without specific prior written permission.</p>
+				</blockquote>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="modules.html">Exports</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/components.html">components</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/components_tkcampselector.html">components/TKCamp<wbr>Selector</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/components_tkcampselector_tkcampselectorcomboboxes.html">components/TKCamp<wbr>Selector/TKCamp<wbr>Selector<wbr>Comboboxes</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/components_tksurveyvisualizer.html">components/TKSurvey<wbr>Visualizer</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/plugins_vuetify.html">plugins/vuetify</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/shims_vue.html">shims-<wbr>vue</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/shims_vuetify.html">shims-<wbr>vuetify</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script
+src="https://unpkg.com/mermaid/dist/mermaid.min.js"
+></script>
+<script>
+    mermaid.initialize({
+      startOnLoad: true,
+    });
+    </script>
+</body>
+</html>

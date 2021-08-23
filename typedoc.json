@@ -1,0 +1,7 @@
+{
+    "entryPoints": "src/",
+    "out": "docs",
+    "name": "Opsmap Toolkit Documentation",
+    "theme": "default",
+    "excludeInternal": "True"
+}

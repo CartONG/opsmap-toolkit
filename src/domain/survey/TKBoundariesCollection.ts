@@ -1,0 +1,9 @@
+import { TKBoundarieDescription } from "../opsmapConfig/TKBoundarieDescription";
+
+// ////////////////////////////////////////////////////////////////////////////
+// Boundaries desription
+// ////////////////////////////////////////////////////////////////////////////
+export interface TKBoundariesCollection {
+  admin1: TKBoundarieDescription[];
+  admin2: TKBoundarieDescription[];
+}

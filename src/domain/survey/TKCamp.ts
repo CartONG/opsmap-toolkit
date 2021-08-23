@@ -1,0 +1,36 @@
+// ////////////////////////////////////////////////////////////////////////////
+// Camp Types
+// ////////////////////////////////////////////////////////////////////////////
+
+export enum TKCampTypesValues {
+  PLANNED = "site_planned",
+  SPONTANEOUS = "site_spontaneous"
+}
+// ////////////////////////////////////////////////////////////////////////////
+// Camp desription
+// ////////////////////////////////////////////////////////////////////////////
+
+import { TKBoundarieDescription } from "@/domain/opsmapConfig/TKBoundarieDescription";
+import { TKLabel } from "../ui/TKLabel";
+import { TKSubmission } from "./TKSubmission";
+
+interface TKCampInfos {
+  id: string;
+  name: string;
+  type: TKCampTypesValues;
+  lat: number;
+  lng: number;
+  admin1: TKBoundarieDescription;
+  admin2: TKBoundarieDescription;
+  admin3: TKBoundarieDescription;
+  managedBy: TKLabel;
+}
+
+// ////////////////////////////////////////////////////////////////////////////
+// Camp Type definition
+// ////////////////////////////////////////////////////////////////////////////
+
+export interface TKCamp {
+  infos: TKCampInfos;
+  submissions: [TKSubmission, ...TKSubmission[]]; // At least one element!
+}

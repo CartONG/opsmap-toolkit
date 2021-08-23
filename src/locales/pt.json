@@ -1,0 +1,63 @@
+{
+  "title": "Opsmap",
+  "infosAdmin1": "Estado",
+  "infosAdmin2": "Cidade",
+  "infosSiteType": "Typo",
+  "infosSitePlanned": "Abrigos",
+  "infosSiteSpontanneous": "Ocupação Espontâ",
+  "manageBy": "Gestão do Abrigo",
+  "selectText": "Selecione um",
+  "survey": "Pesquisa",
+  "camp": "Abrigo",
+  "dashboardCredits": "O painel de controle OPSMAP é uma solução de código aberto sob a licença do MIT",
+  "appVersion": "Versão",
+  "ochaCredits": "Os pictogramas de fontes humanitárias são licenciados sob a licença CC BY 3.0",
+  "footer": {
+    "moreInfos": "Sobre Opsmap",
+    "moreInfosText": "O OPSMAP visa fornecer aos agentes humanitários informações essenciais sobre serviços em nível de local para melhorar a assistência humanitária em locais de deslocados internos.<br/>As informações são coletadas através de informantes-chave em cada site de PDI, utilizando ferramentas móveis de coleta de dados baseadas ou utilizando o formato tradicional de pesquisa.<br/>O painel de controle permite obter rapidamente informações sobre os dados coletados, fornecendo um perfil do site.<br/>Os usuários podem obter insights e usá-los para identificar itens que requerem ação urgente, e recursos devidamente direcionados.",
+    "partnerLed": "Líder do grupo",
+    "partnerCoordination": "Coordenação e IM apoio ",
+    "partnerFieldwork": "Trabalho de campo",
+    "partnerWebdev": "Desenvolvimento Web"
+  },
+  "main": {
+    "switchPage": "Interruptor",
+    "title": "Site de Monitoramento"
+  },
+  "trafficlight": {
+    "ok": "OK",
+    "warning": "Aviso",
+    "danger": "Perigo",
+    "critical": "Crítico",
+    "other": "Outro"
+  },
+  "home": {
+    "lastUpdate": "Última atualização",
+    "moreInfosTitle": "Mais Informações",
+    "combosTitle": "zoom no mapa"
+  },
+  "site": {
+    "exportPreffix": "Exportar como",
+    "infosCoordinates": "coordenadas GPS",
+    "hideUnanswered": "Ocultar entradas não respondidas",
+    "subtitlePlaceholder": "Nenhum local selecionado",
+    "extraTools": "Ferramentas Extras",
+    "datePreffix": "Relatório"
+  },
+  "charts": {
+    "agePyramidTitle": "Pirâmide de Idade",
+    "titleY": "Faixa Etária",
+    "titleX": "População",
+    "female": "Mulheres",
+    "male": "Homens"
+  },
+  "map": {
+    "legendPlanned": "Abrigos",
+    "legendSpontaneous": "Ocupação Espontânea",
+    "legendBasemaps": "Seleccione um mapa de fundo",
+    "legendZoomIn": "Mais Zoom",
+    "legendZoomOut": "Reduzir o zoom",
+    "legendBbox": "Extensão padrão",
+    "legendFilters": "Mostrar / Ocultar legenda"
+  }
+}
