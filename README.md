@@ -45,12 +45,10 @@ For now, it is not valid. It requires pending specific authorization from UNHCR.
 
 ## Mapbox Account
 
-UNHCR has an unlimited mapbox acounnt. It is used n this project.
-Contact preson in UNHCR is Leo.
+The app is using the UNHCR MapBox account. Contact: mapping@unhcr.org
 
 > A Mapbox account was initially dedicated for Opsmaps project
 > username: opsmap.basemaps@gmail.com
-> passwd: @bitwarden / Same pwd for gmail account and mapbox account
 
 ## Project architecture
 
