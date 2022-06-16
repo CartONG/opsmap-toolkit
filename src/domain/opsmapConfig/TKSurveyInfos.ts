@@ -1,11 +1,17 @@
 import { TKFDFInfos } from "../fdf/TKFDFInfos";
 import { TKSurveyOptions } from "../survey/TKSurvey";
 
+export enum TKSurveyInfosType {
+  KOBO = "kobo",
+  CSV = "csv",
+  GSHEET = "gsheet"
+}
+
 // ////////////////////////////////////////////////////////////////////////////
 // Specialization of TKSurveyInfo for KOBO Inputs
 // ////////////////////////////////////////////////////////////////////////////
 export interface TKSurveyInfosKobo {
-  readonly type: "kobo";
+  readonly type: TKSurveyInfosType.KOBO;
   readonly name: string;
   readonly fdf: TKFDFInfos;
   readonly url: string;
@@ -18,7 +24,7 @@ export interface TKSurveyInfosKobo {
 // ////////////////////////////////////////////////////////////////////////////
 
 export interface TKSurveyInfosCSV {
-  readonly type: "csv";
+  readonly type: TKSurveyInfosType.CSV;
   readonly name: string;
   readonly fdf: TKFDFInfos;
   readonly submissionsFolder: string;
@@ -31,15 +37,13 @@ export interface TKSurveyInfosCSV {
 // ////////////////////////////////////////////////////////////////////////////
 
 export interface TKSurveyInfosGSheet {
-  readonly type: "gsheet";
+  readonly type: TKSurveyInfosType.GSHEET;
   readonly name: string;
   readonly fdf: TKFDFInfos;
   readonly submissionsUrl: string;
   readonly submissionsTrUrl: string;
   readonly options: TKSurveyOptions;
 }
-
-// folder: string;
 
 // ////////////////////////////////////////////////////////////////////////////
 // Alltogether type

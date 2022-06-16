@@ -1,5 +1,5 @@
 import { TKFDFThematic } from "@/domain/fdf/TKFDFThematics";
-import { TKLabel } from "../ui/TKLabel";
+import { TKLabel } from "../utils/TKLabel";
 import { TKSubmissionEntry } from "./TKSubmissionEntry";
 
 // ////////////////////////////////////////////////////////////////////////////

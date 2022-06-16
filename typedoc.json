@@ -1,6 +1,6 @@
 {
     "entryPoints": "src/",
-    "out": "docs",
+    "out": "typedoc",
     "name": "Opsmap Toolkit Documentation",
     "theme": "default",
     "excludeInternal": "True"

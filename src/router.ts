@@ -1,12 +1,12 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import TKMainComponentLeftHome from "./components/TKMainComponent/TKMainComponentLeftHome.vue";
-import TKMainComponentLeftCamp from "./components/TKMainComponent/TKMainComponentLeftCamp.vue";
-import TKMainComponentContentHome from "./components/TKMainComponent/TKMainComponentContentHome.vue";
-import TKMainComponentContentCamp from "./components/TKMainComponent/TKMainComponentContentCamp.vue";
-import TKMainComponentIndicatorsHome from "./components/TKMainComponent/TKMainComponentIndicatorsHome.vue";
-import TKMainComponentIndicatorsCamp from "./components/TKMainComponent/TKMainComponentIndicatorsCamp.vue";
-import { TKCampSelector } from "./components/TKMainComponent/TKCampComponents";
+import TKMainComponentLeftHome from "./primary/components/TKMainComponent/TKMainComponentLeftHome.vue";
+import TKMainComponentLeftCamp from "./primary/components/TKMainComponent/TKMainComponentLeftCamp.vue";
+import TKMainComponentContentHome from "./primary/components/TKMainComponent/TKMainComponentContentHome.vue";
+import TKMainComponentContentCamp from "./primary/components/TKMainComponent/TKMainComponentContentCamp.vue";
+import TKMainComponentIndicatorsHome from "./primary/components/TKMainComponent/TKMainComponentIndicatorsHome.vue";
+import TKMainComponentIndicatorsCamp from "./primary/components/TKMainComponent/TKMainComponentIndicatorsCamp.vue";
+import { TKCampSelector } from "./primary/components/TKMainComponent/TKCampComponents";
 
 /*
 he default mode for vue-router is hash mode – it uses the URL hash to simulate a full URL so that the page won’t be reloaded when the URL changes.

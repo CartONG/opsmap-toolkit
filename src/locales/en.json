@@ -1,65 +1,66 @@
 {
-  "title": "Opsmap",
-  "infosAdmin1": "State",
-  "infosAdmin2": "City",
-  "infosSiteType": "Site type",
-  "infosSitePlanned": "Planned",
-  "infosSiteSpontanneous": "Spontanneous",
-  "manageBy": "Manage By",
-  "selectText": "Select a",
-  "survey": "Survey",
-  "camp": "Camp",
-  "dashboardCredits": "The OPSMAP dashboard is an opensource solution under the MIT license",
-  "appVersion": "Version",
-  "ochaCredits": "The Humanitarian font pictograms are licensed under the CC BY 3.0",
-  "footer": {
-    "moreInfos": "About Opsmap",
-    "moreInfosText":  "OPSMAP aims at providing humanitarian actors essential information on services at site level to improve humanitarian assistance in IDP sites.<br/>Information is collected through key informants at each IDP site using mobile data collection tool based or on using traditional format of survey.<br/>The dashboard permit to quickly gain insights into collected data, by providing a site profile. <br/>Users can get insights, and use them identify items that require urgent action, and properly purposing resources.",
-    "partnerLed": "Cluster Lead",
-    "partnerCoordination": "Coordination and IM support",
-    "partnerFieldwork": "Fieldwork",
-    "partnerWebdev": "Webdev"
-  },
-  "trafficlight": {
-    "ok": "OK",
-    "warning":  "Warning",
-    "danger": "Danger",
-    "critical": "Critical",
-    "other": "Other"
-  },
-  "main": {
-    "switchPage": "Switch Page",
-    "title": "Site tracker"
-  },
-  "home": {
-    "lastUpdate": "Last update",
-    "moreInfosTitle": "More Information",
-    "combosTitle": "Zoom on the map"
-  },
-  "site": {
-    "exportPreffix": "Export as",
-    "infosCoordinates": "gps coordinates",
-    "hideUnanswered": "Hide unanswered entries",
-    "subtitlePlaceholder": "No Site Selected",
-    "extraTools": "Extra Tools",
-    "datePreffix": "Report"
-  },
-  "charts": {
-    "agePyramidTitle": "Age Pyramid",
-    "doughnutTitle": "Specific Group",
-    "polarTitle": "Types",
-    "titleY": "Age Range",
-    "titleX": "Population",
-    "female": "Female",
-    "male": "Male"
-  },
-  "map": {
-    "legendPlanned": "Planned site",
-    "legendSpontaneous": "Spontaneous site",
-    "legendBasemaps": "Select a basemap",
-    "legendZoomIn": "Zoom in",
-    "legendZoomOut": "Zoom out",
-    "legendBbox": "Default Extent",
-    "legendFilters": "Show / Hide legend"
-  }
+    "title": "Opsmap",
+    "infosAdmin1": "State",
+    "infosAdmin2": "City",
+    "infosSiteType": "Site type",
+    "manageBy": "Manage By",
+    "selectText": "Select a",
+    "survey": "Survey",
+    "camp": "Camp",
+    "dashboardCredits": "The OPSMAP dashboard is an opensource solution under the MIT license",
+    "ochaCredits": "The Humanitarian font pictograms are licensed under the CC BY 3.0",
+    "appName": "Site profile",
+    "disclaimer": {
+        "text": "Beta version"
+    },
+    "footer": {
+        "moreInfos": "About Opsmap",
+        "moreInfosText": "OPSMAP aims at providing to humanitarian actors a solution that allows them to summarized the state of services within the various sites hosting displaced persons. By automatically producing \"site profiles\", OPSMAPs allow humanitarian actors to quickly obtain an overview of the information essential for site management. Users can easily obtain information via the web interface (dashboard), and use it to identify points that require urgent action. Two versions of OPSMAP are available: a \"standard\" version and a \"custom\" version. <br /> The standard version is an open source solution, developed by CartONG in 2021, with the support of the UNHCR GDS section (MIT license, current version: {version}). Pictograms used come from the \"Humanitarian icons\" database (Credit OCHA, licensed under CC BY 3.0)",
+        "partnerLed": "Cluster Lead",
+        "partnerCoordination": "Coordination and IM support",
+        "partnerFieldwork": "Fieldwork",
+        "partnerWebdev": "Webdev"
+    },
+    "trafficlight": {
+        "ok": "OK",
+        "warning": "Warning",
+        "danger": "Danger",
+        "critical": "Critical",
+        "other": "Other"
+    },
+    "main": {
+        "switchPage": "Switch Page"
+    },
+    "home": {
+        "lastUpdate": "Last update",
+        "moreInfosTitle": "More Information",
+        "combosTitle": "Zoom on the map",
+        "exportToCSV": "Export current selection to CSV"
+    },
+    "site": {
+        "exportPreffix": "Export as",
+        "infosCoordinates": "gps coordinates",
+        "hideUnanswered": "With answer only",
+        "sortByTrafficLight": "Sort",
+        "subtitlePlaceholder": "No Site Selected",
+        "extraTools": "Extra Tools",
+        "datePreffix": "Report",
+        "filter": "Filter"
+    },
+    "charts": {
+        "agePyramidTitle": "Age Pyramid",
+        "doughnutTitle": "Specific Group",
+        "polarTitle": "Types",
+        "titleY": "Age Range",
+        "titleX": "Population",
+        "female": "Female",
+        "male": "Male"
+    },
+    "map": {
+        "legendBasemaps": "Select a basemap",
+        "legendZoomIn": "Zoom in",
+        "legendZoomOut": "Zoom out",
+        "legendBbox": "Default Extent",
+        "legendFilters": "Show / Hide legend"
+    }
 }

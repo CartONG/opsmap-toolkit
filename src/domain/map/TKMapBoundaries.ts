@@ -1,21 +1,18 @@
 import { Feature, FeatureCollection } from "geojson";
 import mapboxgl, { LngLat, LngLatBounds, LngLatLike } from "mapbox-gl";
-import {
-  TKDatasetFilterer,
-  TKFilters
-} from "@/domain/survey/TKDatasetFilterer";
+import { TKDataset, TKAdminFilters } from "@/domain/survey/TKDataset";
 import { TKGeoDataset } from "@/domain/map/TKGeoDataset";
-import { TKMapLayers } from "./TKMapLayers";
-import { TKSpatialDescription } from "../opsmapConfig/TKSpatialDescription";
+import { TKMapLayers, TKMapLayersSource } from "./TKMapLayers";
+import { TKFDFSpatialDescription } from "../fdf/TKFDFSpatialDescription";
 
 export class TKMapBoundaries {
   public admin1: FeatureCollection;
   public admin2: FeatureCollection;
-  public spatialDescription: TKSpatialDescription;
+  public spatialDescription: TKFDFSpatialDescription;
 
   constructor(
     geodataset: TKGeoDataset,
-    spatialDescription: TKSpatialDescription
+    spatialDescription: TKFDFSpatialDescription
   ) {
     this.admin1 = geodataset.admin1;
     this.admin2 = geodataset.admin2;
@@ -27,7 +24,7 @@ export class TKMapBoundaries {
   // //////////////////////////////////////////////////////////////////////////
 
   changeStyle(
-    dataset: TKDatasetFilterer,
+    dataset: TKDataset,
     map: mapboxgl.Map,
     bound: LngLatBounds
   ): void {
@@ -35,7 +32,7 @@ export class TKMapBoundaries {
     const setZoom1 = this.setAdmin1Style(dataset);
     const setZoom2 = this.setAdmin2Style(dataset);
     switch (dataset.levelToZoom) {
-      case TKFilters.SURVEY:
+      case TKAdminFilters.SURVEY:
         this.mapFitBounds(bound, map);
         for (const item of this.admin1.features) {
           if (item.properties) {
@@ -43,15 +40,15 @@ export class TKMapBoundaries {
           }
         }
         break;
-      case TKFilters.ADMIN1:
+      case TKAdminFilters.ADMIN1:
         setZoom = setZoom1;
         this.setAdmin2Style(dataset);
         if (setZoom) {
           this.mapFitBounds(setZoom, map);
         }
         break;
-      case TKFilters.CAMP:
-      case TKFilters.ADMIN2:
+      case TKAdminFilters.CAMP:
+      case TKAdminFilters.ADMIN2:
         setZoom = setZoom2;
         if (setZoom) {
           this.mapFitBounds(setZoom, map);
@@ -62,18 +59,17 @@ export class TKMapBoundaries {
     }
     if (dataset.currentCamp) {
       this.mapFitBounds(
-        new LngLat(
-          dataset.currentCamp.infos.lng,
-          dataset.currentCamp.infos.lat
-        ).toBounds(100),
+        new LngLat(dataset.currentCamp.lng, dataset.currentCamp.lat).toBounds(
+          100
+        ),
         map
       );
     }
     (map.getSource(
-      TKMapLayers.ADMIN1SOURCE
+      TKMapLayersSource.ADMIN1SOURCE
     ) as mapboxgl.GeoJSONSource)?.setData(this.admin1);
     (map.getSource(
-      TKMapLayers.ADMIN2SOURCE
+      TKMapLayersSource.ADMIN2SOURCE
     ) as mapboxgl.GeoJSONSource)?.setData(this.admin2);
   }
 
@@ -90,7 +86,7 @@ export class TKMapBoundaries {
   //
   // //////////////////////////////////////////////////////////////////////////
 
-  setAdmin1Style(dataset: TKDatasetFilterer) {
+  setAdmin1Style(dataset: TKDataset) {
     let shouldMapZoom = null;
     const currentadmin1List = dataset.filteredAdmin1List.map(
       item => item.pcode
@@ -124,7 +120,7 @@ export class TKMapBoundaries {
   //
   // //////////////////////////////////////////////////////////////////////////
 
-  setAdmin2Style(dataset: TKDatasetFilterer) {
+  setAdmin2Style(dataset: TKDataset) {
     let shouldMapZoom = null;
     const currentadmin2List = dataset.filteredAdmin2List.map(
       item => item.pcode

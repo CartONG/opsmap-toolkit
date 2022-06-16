@@ -1,28 +1,27 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-  TKIndicatorsDescription,
-  TKIndicatorDescription,
-  TKIndicatorDescriptionSiteOccupation
-} from "@/domain/opsmapConfig/TKIndicatorsDescription";
 import { TKFDF } from "@/domain/fdf/TKFDF";
 import {
   TKCreateSubmissionEntryText,
   TKSubmissionEntryPolar,
   TKSubmissionEntryDoughnut,
-  TKSubmissionEntryAgePyramid
+  TKSubmissionEntryAgePyramid,
+  TKSubmissionEntryType,
+  TKCreateSubmissionEntryList,
+  TKCreateSubmissionEntryBullet
 } from "./TKSubmissionEntry";
 import {
   TKSubmissionThematic,
   TKCreateSubmissionThematic
 } from "./TKSubmissionThematic";
-import { TKIndicator } from "@/domain/ui/TKIndicator";
-import { TKLabel } from "../ui/TKLabel";
-import { isNumber } from "@turf/turf";
+import { TKIndicator, TKIndicatorType } from "@/domain/survey/TKIndicator";
+import { TKLabel } from "../utils/TKLabel";
 import { TKFDFSubmissionItemType } from "../fdf/TKFDFSubmissionsRules";
-import { TKSpatialDescription } from "../opsmapConfig/TKSpatialDescription";
-import { TKCompare, TKCompute } from "../ui/TKOperator";
-import { TKOperatorComputation } from "../ui/TKOperator";
-import { TKOperatorComparison } from "../ui/TKOperator";
+import { TKCompare, TKCompute } from "../utils/TKOperator";
+import { TKOperatorComputation } from "../utils/TKOperator";
+import { TKOperatorComparison } from "../utils/TKOperator";
+import { TKFDFIndicatorCamp, TKFDFIndicatorType } from "../fdf/TKFDFIndicators";
+import { evaluate, round } from "mathjs";
+import { TKSurveyOptions } from "./TKSurvey";
 
 // ////////////////////////////////////////////////////////////////////////////
 //  Submission concept definition
@@ -45,13 +44,14 @@ function getValueForIndicator(
   for (const thematic in data) {
     const them = data[thematic];
     const item = them.data.find(
-      item => item.type === "text" && item.field === entryCode
+      item =>
+        item.type === TKSubmissionEntryType.TEXT && item.field === entryCode
     );
     if (
       item &&
-      item.type === "text" &&
+      item.type === TKSubmissionEntryType.TEXT &&
       item.answerLabel &&
-      isNumber(item.answerLabel.en)
+      !isNaN(parseFloat(item.answerLabel.en))
     ) {
       return Number(item.answerLabel.en);
     }
@@ -66,24 +66,20 @@ function getLabelForIndicator(
   for (const thematic in data) {
     const them = data[thematic];
     const item = them.data.find(
-      item => item.type === "text" && item.field === entryCode
+      item =>
+        item.type === TKSubmissionEntryType.TEXT && item.field === entryCode
     );
-    if (item && item.type === "text" && item.answerLabel) {
+    if (item && item.type === TKSubmissionEntryType.TEXT && item.answerLabel) {
       return item.answerLabel;
     }
   }
   return { en: "-" };
 }
 function computeSubmissionIndicator(
-  descr: TKIndicatorDescription | TKIndicatorDescriptionSiteOccupation,
+  descr: TKFDFIndicatorCamp,
   data: Record<string, TKSubmissionThematic>
 ): TKIndicator {
-  if (descr.type === "site_occupation") {
-    const labelIsMaxCapacity = getLabelForIndicator(
-      data,
-      descr.entryCodeMaxCapacity
-    );
-
+  if (descr.type === TKFDFIndicatorType.OCCUPATION) {
     // Should be two integers
     const peopleCount = getValueForIndicator(data, descr.entryCodePeopleCount);
     const maxPeopleCount = getValueForIndicator(
@@ -99,11 +95,20 @@ function computeSubmissionIndicator(
       const percentValue = Math.round((peopleCount / maxPeopleCount) * 100);
       const percentText = percentValue.toString();
       const valueLabel: TKLabel = {};
-      for (const k in labelIsMaxCapacity) {
-        valueLabel[k] = labelIsMaxCapacity[k] + " (" + percentText + "%)";
+      Object.keys(descr.name).map(key => {
+        valueLabel[key] = "";
+      });
+
+      const labelIsMaxCapacity = descr.entryCodeMaxCapacity
+        ? getLabelForIndicator(data, descr.entryCodeMaxCapacity)
+        : null;
+      for (const k in valueLabel) {
+        valueLabel[k] = labelIsMaxCapacity
+          ? labelIsMaxCapacity[k] + " (" + percentText + "%)"
+          : percentText;
       }
       return {
-        type: descr.type,
+        type: TKIndicatorType.OCCUPATION,
         iconOchaName: descr.iconOchaName,
         nameLabel: descr.name,
         valueNumber: percentValue,
@@ -112,7 +117,7 @@ function computeSubmissionIndicator(
       };
     } else {
       return {
-        type: descr.type,
+        type: TKIndicatorType.OCCUPATION,
         iconOchaName: descr.iconOchaName,
         nameLabel: descr.name,
         valueLabel: { en: "-" },
@@ -121,9 +126,26 @@ function computeSubmissionIndicator(
       };
     }
   } else {
+    if (descr.type === TKFDFIndicatorType.COMPUTATION) {
+      const entry1Value = getValueForIndicator(data, descr.entryCode1) ?? 0;
+      const entry2Value = getValueForIndicator(data, descr.entryCode2) ?? 0;
+      const operation = `${entry1Value} ${descr.operator} ${entry2Value}`;
+      let result = evaluate(operation);
+
+      if (descr.numberStrategy && descr.numberStrategy === "round") {
+        result = round(result);
+      }
+
+      return {
+        type: TKIndicatorType.STANDARD,
+        iconOchaName: descr.iconOchaName,
+        nameLabel: descr.name,
+        valueLabel: { en: result }
+      };
+    }
     const label = getLabelForIndicator(data, descr.entryCode);
     return {
-      type: descr.type,
+      type: TKIndicatorType.STANDARD,
       iconOchaName: descr.iconOchaName,
       nameLabel: descr.name,
       valueLabel: label
@@ -159,7 +181,7 @@ function createChartInSubmission(
       .reverse();
 
     const entry: TKSubmissionEntryAgePyramid = {
-      type: "age_pyramid",
+      type: TKSubmissionEntryType.CHART_PYRAMID,
       chartid: chartData.id,
       isAnswered: true,
       title: surveyConfiguration.fieldsLabels[chartData.id],
@@ -175,7 +197,7 @@ function createChartInSubmission(
     submission[chartData.thematic].data.push(entry);
   } else if (chartData.id.includes("doughnut")) {
     const entry: TKSubmissionEntryDoughnut = {
-      type: "doughnut",
+      type: TKSubmissionEntryType.CHART_DOUGHNUT,
       chartid: chartData.id,
       isAnswered: true,
       title: surveyConfiguration.fieldsLabels[chartData.id],
@@ -189,7 +211,7 @@ function createChartInSubmission(
     submission[chartData.thematic].data.push(entry);
   } else if (chartData.id.includes("polar_area_chart")) {
     const entry: TKSubmissionEntryPolar = {
-      type: "polar",
+      type: TKSubmissionEntryType.CHART_POLAR,
       chartid: chartData.id,
       isAnswered: true,
       title: surveyConfiguration.fieldsLabels[chartData.id],
@@ -210,17 +232,14 @@ function createChartInSubmission(
 
 export function TKCreateSubmission(
   submissionItem: Record<string, string>,
-  surveyConfiguration: TKFDF,
-  indicatorsDescription: TKIndicatorsDescription,
-  spatialDescription: TKSpatialDescription,
+  fdf: TKFDF,
+  options: TKSurveyOptions,
   languages: string[]
 ): TKSubmission {
   // Init all the thematics
   const submission: Record<string, TKSubmissionThematic> = {};
-  for (const thematic in surveyConfiguration.thematics) {
-    submission[thematic] = TKCreateSubmissionThematic(
-      surveyConfiguration.thematics[thematic]
-    );
+  for (const thematic in fdf.thematics) {
+    submission[thematic] = TKCreateSubmissionThematic(fdf.thematics[thematic]);
   }
 
   // Init chart
@@ -230,97 +249,127 @@ export function TKCreateSubmission(
     data: []
   };
 
-  for (const key in surveyConfiguration.submissionsRules) {
-    const rule = surveyConfiguration.submissionsRules[key];
+  for (const key in fdf.submissionsRules) {
+    const rule = fdf.submissionsRules[key];
 
-    // Handle display status
-    let display = true;
-    if (rule.displayCondition) {
-      try {
-        display = TKCompare(
-          submissionItem[rule.displayCondition.field],
-          rule.displayCondition.operator as TKOperatorComparison,
-          rule.displayCondition.value
-        );
-      } catch (error) {
-        display = false;
-      }
-    }
-    if (display) {
-      // If charts
-      if (rule.chartId) {
-        const value = submissionItem[rule.fieldName];
-
-        // If exists chart
-        if (currentChart.id && rule.chartId !== currentChart.id) {
-          createChartInSubmission(
-            currentChart,
-            submission,
-            surveyConfiguration
-          );
-
-          // Clear current submission
-          currentChart.id = "";
-          currentChart.thematic = "";
-          currentChart.data = [];
-        }
-
-        // Init currentChart
-        if (!currentChart.id) {
-          currentChart.id = rule.chartId;
-          currentChart.thematic = rule.thematicGroup;
-          currentChart.data = [];
-        }
-
-        // Accumulate Chart data
-        currentChart.data.push({
-          field: rule.fieldName,
-          value: value,
-          type: rule.chartData
-        });
-      }
-
-      // If text item
-      else {
-        let value = undefined;
+    if (submission[rule.thematicGroup]) {
+      // Handle display status
+      let display = true;
+      if (rule.displayCondition) {
         try {
-          if (rule.type === TKFDFSubmissionItemType.COMPUTED && rule.computed) {
-            value = Math.round(
-              TKCompute(
-                Number(submissionItem[rule.computed.field1]),
-                rule.computed.operator as TKOperatorComputation,
-                Number(submissionItem[rule.computed.field2])
-              )
-            ).toString();
-          } else {
-            value = submissionItem[rule.fieldName];
-          }
+          display = TKCompare(
+            submissionItem[rule.displayCondition.field],
+            rule.displayCondition.operator as TKOperatorComparison,
+            rule.displayCondition.value
+          );
         } catch (error) {
-          value = "-";
+          display = false;
         }
-        if (value) {
+      }
+      if (display) {
+        // If charts
+        if (rule.chartId) {
+          const value = submissionItem[rule.fieldName];
+
           // If exists chart
-          if (currentChart.id) {
-            createChartInSubmission(
-              currentChart,
-              submission,
-              surveyConfiguration
-            );
+          if (currentChart.id && rule.chartId !== currentChart.id) {
+            createChartInSubmission(currentChart, submission, fdf);
 
             // Clear current submission
             currentChart.id = "";
             currentChart.thematic = "";
             currentChart.data = [];
           }
-          // push it before switching to text item
-          submission[rule.thematicGroup].data.push(
-            TKCreateSubmissionEntryText(
-              value,
-              rule.fieldName,
-              surveyConfiguration,
-              languages
-            )
-          );
+
+          // Init currentChart
+          if (!currentChart.id) {
+            currentChart.id = rule.chartId;
+            currentChart.thematic = rule.thematicGroup;
+            currentChart.data = [];
+          }
+
+          // Accumulate Chart data
+          currentChart.data.push({
+            field: rule.fieldName,
+            value: value,
+            type: rule.chartData
+          });
+        }
+
+        // If text item
+        else {
+          let value = "";
+          switch (rule.type) {
+            case TKFDFSubmissionItemType.COMPUTED:
+              try {
+                if (rule.computed) {
+                  value = Math.round(
+                    TKCompute(
+                      Number(submissionItem[rule.computed.field1]),
+                      rule.computed.operator as TKOperatorComputation,
+                      Number(submissionItem[rule.computed.field2])
+                    )
+                  ).toString();
+                } else {
+                  value = submissionItem[rule.fieldName];
+                }
+              } catch (error) {
+                value = "";
+              }
+
+              submission[rule.thematicGroup].data.push(
+                TKCreateSubmissionEntryText(value, rule.fieldName, fdf)
+              );
+              break;
+            case TKFDFSubmissionItemType.LIST:
+              value = submissionItem[rule.fieldName];
+              if (value !== undefined) {
+                submission[rule.thematicGroup].data.push(
+                  TKCreateSubmissionEntryList(
+                    value,
+                    rule.fieldName,
+                    options.listSeparator,
+                    fdf,
+                    languages
+                  )
+                );
+              }
+              break;
+            case TKFDFSubmissionItemType.BULLET:
+              value = submissionItem[rule.fieldName];
+              if (value !== undefined) {
+                submission[rule.thematicGroup].data.push(
+                  TKCreateSubmissionEntryBullet(
+                    value,
+                    rule.fieldName,
+                    options.listSeparator,
+                    fdf
+                  )
+                );
+              }
+              break;
+
+            case TKFDFSubmissionItemType.DATE:
+            case TKFDFSubmissionItemType.INTEGER:
+            case TKFDFSubmissionItemType.STRING:
+              value = submissionItem[rule.fieldName];
+              if (value !== undefined) {
+                submission[rule.thematicGroup].data.push(
+                  TKCreateSubmissionEntryText(value, rule.fieldName, fdf)
+                );
+              }
+              break;
+          }
+
+          // If exists chart
+          if (currentChart.id) {
+            createChartInSubmission(currentChart, submission, fdf);
+
+            // Clear current submission
+            currentChart.id = "";
+            currentChart.thematic = "";
+            currentChart.data = [];
+          }
         }
       }
     }
@@ -328,7 +377,7 @@ export function TKCreateSubmission(
 
   // if a current pyramid is ongoing - push it before ending
   if (currentChart.id) {
-    createChartInSubmission(currentChart, submission, surveyConfiguration);
+    createChartInSubmission(currentChart, submission, fdf);
   }
 
   //  Solution to filter thematics if nothing has been answered. ////////////////////////
@@ -340,12 +389,12 @@ export function TKCreateSubmission(
   }
 
   return {
-    date: submissionItem[spatialDescription.siteLastUpdateField],
+    date: submissionItem[fdf.spatialDescription.siteLastUpdateField],
     thematics: submissionFiltered,
     indicators: [
-      computeSubmissionIndicator(indicatorsDescription.site[0], submission),
-      computeSubmissionIndicator(indicatorsDescription.site[1], submission),
-      computeSubmissionIndicator(indicatorsDescription.site[2], submission)
+      computeSubmissionIndicator(fdf.indicators.site[0], submission),
+      computeSubmissionIndicator(fdf.indicators.site[1], submission),
+      computeSubmissionIndicator(fdf.indicators.site[2], submission)
     ]
   };
 }

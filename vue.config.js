@@ -4,8 +4,7 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { gitDescribeSync } = require("git-describe");
 const gitInfos = gitDescribeSync();
-process.env.VUE_APP_VERSION = gitInfos.tag;
-process.env.VUE_APP_GITHEAD = gitInfos.hash;
+process.env.VUE_APP_VERSION = gitInfos.raw ?? `v0.9.${gitInfos.hash}`;
 
 module.exports = {
   configureWebpack: {
@@ -35,5 +34,5 @@ module.exports = {
     }
   },
 
-  publicPath: `/opsmap/${process.env.npm_package_name}/`
+  publicPath: `${process.env.BASE_URL}/`
 };

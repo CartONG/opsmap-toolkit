@@ -1,0 +1,66 @@
+{
+    "title": "Opsmap",
+    "infosAdmin1": "Etat",
+    "infosAdmin2": "Ville",
+    "infosSiteType": "Type de site",
+    "manageBy": "Géré par",
+    "selectText": "Choisis un",
+    "survey": "Enquête",
+    "camp": "Camp",
+    "dashboardCredits": "Le project Opsmap est une solution opensource sous license MIT",
+    "ochaCredits": "Les pictogrammes Humanitarian font sontsous licence CC BY 3.0",
+    "appName": "Fiche de site",
+    "disclaimer": {
+        "text": "Version beta"
+    },
+    "footer": {
+        "moreInfos": "A propos de opsmaps",
+        "moreInfosText": "L'objectif des OPSMAP est de mettre à disposition des acteurs humanitaires, une solution permettant de synthétiser l’état des services au sein des différents sites d’accueil de personnes déplacées. En produisant de façon automatique des « profils de site », les OPSMAP permettent d'obtenir rapidement un aperçu des informations essentielles à la gestion des sites. Les utilisateurs peuvent ainsi obtenir facilement des informations via l'interface web (dashboard), et les utiliser pour identifier les points qui nécessitent une action urgente. Deux versions des OPSMAP sont disponibles : une version « standard » et une version « custom ». <br /> La version standard est une solution open source, développé par CartONG en 2021, avec le soutien de la section GDS de l’UNHCR (licence MIT, dernière version: {version}). Les pictogrammes utilisés proviennent de la base de données \"Humanitarian icons\" (Crédit OCHA, sous licence CC BY 3.0)",
+        "partnerLed": "Cluster Lead",
+        "partnerCoordination": "Coordination et support IM",
+        "partnerFieldwork": "Travail de terrain",
+        "partnerWebdev": "Développement web"
+    },
+    "trafficlight": {
+        "ok": "OK",
+        "warning": "Attention",
+        "danger": "Danger",
+        "critical": "Critique",
+        "other": "Autre"
+    },
+    "main": {
+        "switchPage": "Changer de page"
+    },
+    "home": {
+        "lastUpdate": "Dernière modification",
+        "moreInfosTitle": "Plus d'information",
+        "combosTitle": "Zoom sur la carte",
+        "exportToCSV": "Export de la sélection courante en CSV"
+    },
+    "site": {
+        "exportPreffix": "Export en tant que",
+        "infosCoordinates": "coordonnées gps",
+        "hideUnanswered": "Avec réponse seulement",
+        "sortByTrafficLight": "Classer",
+        "subtitlePlaceholder": "Aucun site sélectionné",
+        "extraTools": "Autres outils",
+        "datePreffix": "Rapport",
+        "filter": "Filtre"
+    },
+    "charts": {
+        "agePyramidTitle": "Pyramid des âges",
+        "doughnutTitle": "Groupes spécifiques",
+        "polarTitle": "Types",
+        "titleY": "Interval d'Age",
+        "titleX": "Population",
+        "female": "Fille",
+        "male": "Garçon"
+    },
+    "map": {
+        "legendBasemaps": "Sélectionner un fond de carte",
+        "legendZoomIn": "Zoomer",
+        "legendZoomOut": "Dézoomer",
+        "legendBbox": "Etendue par défault",
+        "legendFilters": "Montrer / masquer la légende"
+    }
+}
