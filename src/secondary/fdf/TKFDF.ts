@@ -4,14 +4,9 @@
 // It is needed to create an actual survey
 
 import { TKFDF } from "@/domain/fdf/TKFDF";
-import { TKFDFIndicators } from "@/domain/fdf/TKFDFIndicators";
-import { TKFDFSpatialDescription } from "@/domain/fdf/TKFDFSpatialDescription";
 import { TKSurveyInfos } from "@/domain/opsmapConfig/TKSurveyInfos";
 import { TKFDFFiles } from "@/secondary/fdf/TKFDFInfos";
-import {
-  TKReadFDFLabelCollection,
-  TKReadFDFLabelCollectionFromGSheet
-} from "@/secondary/fdf/TKFDFParseMultiLang";
+import { TKReadFDFLabelCollection } from "@/secondary/fdf/TKFDFParseMultiLang";
 import { TKReadSubmissionsRulesCollection } from "@/secondary/fdf/TKFDFSubmissionsRules";
 import { TKReadFDFTerminologyCollection } from "@/secondary/fdf/TKFDFTerminology";
 import { TKReadFDFThematicsCollection } from "@/secondary/fdf/TKFDFThematics";
@@ -22,21 +17,21 @@ import { TKReadFDFSiteTypesCollection } from "./TKFDFSiteTypes";
 // ////////////////////////////////////////////////////////////////////////////
 // Method that creates the FDF object from the fdf folder
 // ////////////////////////////////////////////////////////////////////////////
-export async function TKReadFDF(
-  infos: TKSurveyInfos,
-  indicators: TKFDFIndicators,
-  spatialDescription: TKFDFSpatialDescription
-): Promise<TKFDF> {
+export async function TKReadFDF(infos: TKSurveyInfos): Promise<TKFDF> {
   let answersLabels = {};
-  if (infos.type === "gsheet") {
-    answersLabels = await TKReadFDFLabelCollectionFromGSheet(
-      infos.submissionsTrUrl
-    );
-  } else {
-    answersLabels = await TKReadFDFLabelCollection(
-      TKFDFFiles.ANSWERS,
-      infos.fdf
-    );
+  switch (infos.type) {
+    case "gsheet":
+      answersLabels = await TKReadFDFLabelCollection(infos.submissionsTrUrl);
+      break;
+    case "csv":
+      answersLabels = await TKReadFDFLabelCollection(
+        `${process.env.BASE_URL}/${infos.submissionsTrLocalUrl}`
+      );
+      break;
+    case "kobo":
+      answersLabels = await TKReadFDFLabelCollection(
+        `${process.env.BASE_URL}/${infos.fdf.folder}/${TKFDFFiles.ANSWERS}.csv`
+      );
   }
 
   return {
@@ -44,12 +39,14 @@ export async function TKReadFDF(
     terminology: await TKReadFDFTerminologyCollection(infos.fdf),
     thematics: await TKReadFDFThematicsCollection(infos.fdf),
     trafficLights: await TKReadFDFTrafficLightsCollection(infos.fdf),
-    fieldsLabels: await TKReadFDFLabelCollection(TKFDFFiles.FIELDS, infos.fdf),
+    fieldsLabels: await TKReadFDFLabelCollection(
+      `${process.env.BASE_URL}/${infos.fdf.folder}/${TKFDFFiles.FIELDS}.csv`
+    ),
     answersLabels: answersLabels,
     submissionsRules: await TKReadSubmissionsRulesCollection(infos.fdf),
     urls: await TKReadFDFURLsCollection(infos.fdf),
-    indicators: indicators,
-    spatialDescription: spatialDescription,
+    indicators: infos.indicators,
+    spatialDescription: infos.spatial,
     siteTypes: await TKReadFDFSiteTypesCollection(infos.fdf)
   };
 }

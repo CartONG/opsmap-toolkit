@@ -1,0 +1,70 @@
+{
+    "title": "Opsmap",
+    "infosAdmin1": "Stat",
+    "infosAdmin2": "Oraș",
+    "infosSiteType": "Tipul de sit",
+    "manageBy": "Gestionat de",
+    "selectText": "Selectați un",
+    "survey": "Sondaj",
+    "infosSite": "Tabăra",
+    "dashboardCredits": "Tabloul de bord OPSMAP este o soluție opensource sub licența MIT",
+    "ochaCredits": "Pictogramele cu fonturi umanitare sunt licențiate sub licența CC BY 3.0",
+    "appName": "Profilul site-ului",
+    "disclaimer": {
+        "text": "Versiunea beta"
+    },
+    "footer": {
+        "moreInfos": "Despre Opsmap",
+        "moreInfosText": "OPSMAP își propune să pună la dispoziția actorilor umanitari o soluție care să le permită să rezume starea serviciilor din cadrul diferitelor situri care găzduiesc persoane strămutate. Prin producerea automată a unor \"profile de sit\", OPSMAP permite actorilor umanitari să obțină rapid o imagine de ansamblu a informațiilor esențiale pentru gestionarea siturilor. Utilizatorii pot obține cu ușurință informații prin intermediul interfeței web (tablou de bord) și le pot utiliza pentru a identifica punctele care necesită acțiuni urgente. Sunt disponibile două versiuni ale OPSMAP: o versiune \"standard\" și o versiune \"personalizată\". Versiunea standard este o soluție open source, dezvoltată de CartONG în 2021, cu sprijinul secției GDS a UNHCR (licență MIT, versiunea actuală: v1.11.2-44-g59a9a0e). Pictogramele utilizate provin din baza de date \"Icoane umanitare\" (Credit OCHA, cu licență CC BY 3.0)",
+        "partnerLed": "Lider de grup",
+        "partnerCoordination": "Coordonare și sprijin în materie de MI",
+        "partnerFieldwork": "Lucrări pe teren",
+        "partnerWebdev": "Webdev"
+    },
+    "trafficlight": {
+        "ok": "OK",
+        "warning": "Avertisment",
+        "danger": "Pericol",
+        "critical": "Critic",
+        "other": "Altele"
+    },
+    "main": {
+        "switchPage": "Pagina de comutare"
+    },
+    "home": {
+        "lastUpdate": "Ultima actualizare",
+        "moreInfosTitle": "Mai multe informații",
+        "combosTitle": "Zoom pe hartă",
+        "exportToCSV": "Exportați selecția curentă în CSV"
+    },
+    "site": {
+        "exportPreffix": "Exportați ca",
+        "infosCoordinates": "coordonate gps",
+        "hideUnanswered": "Doar cu răspuns",
+        "sortByTrafficLight": "Sortare",
+        "subtitlePlaceholder": "Nici un site selectat",
+        "extraTools": "Instrumente suplimentare",
+        "datePreffix": "Raportează",
+        "filter": "Filtru"
+    },
+    "charts": {
+        "agePyramidTitle": "Piramida vârstelor",
+        "doughnutTitle": "Grup specific",
+        "polarTitle": "Tipuri",
+        "titleY": "Interval de vârstă",
+        "titleX": "Populația",
+        "female": "Femei",
+        "male": "Masculin"
+    },
+    "map": {
+        "legendBasemaps": "Selectați o hartă de bază",
+        "legendZoomIn": "Măriți",
+        "legendZoomOut": "Zoom out",
+        "legendBbox": "Extindere implicită",
+        "legendFilters": "Afișați / Ascundeți legenda"
+    },
+    "indicator": {
+        "siteCount": "Site-uri",
+        "peopleCount": "Popoare"
+    }
+}

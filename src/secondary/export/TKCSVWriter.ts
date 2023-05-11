@@ -1,4 +1,4 @@
-import { TKCamp } from "@/domain/survey/TKCamp";
+import { TKSite } from "@/domain/survey/TKSite";
 import { TKDataset } from "@/domain/survey/TKDataset";
 import { TKSubmission } from "@/domain/survey/TKSubmission";
 import { TKSubmissionEntryType } from "../../domain/survey/TKSubmissionEntry";
@@ -8,7 +8,7 @@ import { TKGetLocalValue } from "../../domain/utils/TKLabel";
 // Helper methods
 // ////////////////////////////////////////////////////////////////////////////
 
-function computeCurrentCampCSVContent(
+function computeCurrentSiteCSVContent(
   submission: TKSubmission,
   locale: string
 ): string {
@@ -89,25 +89,25 @@ function computeCurrentCampCSVContent(
 // ////////////////////////////////////////////////////////////////////////////
 
 function computeCurrentSelectionCSVContent(
-  camps: TKCamp[],
+  sites: TKSite[],
   locale: string
 ): string {
-  const rows = [["name", "admin1", "admin2", "admin3", "submissionDate"]];
+  const rows = [["name", "admin1", "admin2", "submissionDate"]];
 
-  if (camps.length && camps[0].submissions.length) {
-    for (const indicator of camps[0].submissions[0].indicators) {
+  if (sites.length && sites[0].submissions.length) {
+    for (const indicator of sites[0].submissions[0].indicators) {
       rows[0].push("Indicator/" + TKGetLocalValue(indicator.nameLabel, locale));
     }
 
-    for (const key of Object.keys(camps[0].submissions[0].thematics)) {
-      const thematicEntries = camps[0].submissions[0].thematics[key].data;
+    for (const key of Object.keys(sites[0].submissions[0].thematics)) {
+      const thematicEntries = sites[0].submissions[0].thematics[key].data;
       for (const entry of thematicEntries) {
         switch (entry.type) {
           case TKSubmissionEntryType.TEXT:
           case TKSubmissionEntryType.BULLET:
             rows[0].push(
               TKGetLocalValue(
-                camps[0].submissions[0].thematics[key].nameLabel,
+                sites[0].submissions[0].thematics[key].nameLabel,
                 locale
               ) +
                 "/" +
@@ -117,9 +117,10 @@ function computeCurrentSelectionCSVContent(
           case TKSubmissionEntryType.CHART_PYRAMID:
           case TKSubmissionEntryType.CHART_DOUGHNUT:
           case TKSubmissionEntryType.CHART_POLAR:
+          case TKSubmissionEntryType.CHART_RADAR:
             rows[0].push(
               TKGetLocalValue(
-                camps[0].submissions[0].thematics[key].nameLabel,
+                sites[0].submissions[0].thematics[key].nameLabel,
                 locale
               ) +
                 "/" +
@@ -133,13 +134,12 @@ function computeCurrentSelectionCSVContent(
     }
   }
 
-  for (const camp of camps) {
-    for (const submission of camp.submissions) {
+  for (const site of sites) {
+    for (const submission of site.submissions) {
       const row = [
-        camp.name,
-        camp.admin1.name,
-        camp.admin2.name,
-        camp.admin3.name,
+        site.name,
+        site.admin1.name,
+        site.admin2.name,
         submission.date.toString()
       ];
 
@@ -207,7 +207,7 @@ export function TKCSVWrite(
   locale: string
 ) {
   if (dataset.currentSubmission) {
-    const csvContent = computeCurrentCampCSVContent(
+    const csvContent = computeCurrentSiteCSVContent(
       dataset.currentSubmission,
       locale
     );
@@ -230,7 +230,7 @@ export function TKCSVWriteCurrentSelection(
   locale: string
 ) {
   const csvContent = computeCurrentSelectionCSVContent(
-    dataset.filteredTypedCampsList,
+    dataset.filteredTypedSitesList,
     locale
   );
   const encodedUri = encodeURI(csvContent);

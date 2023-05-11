@@ -3,7 +3,11 @@
     <div :key="$root.$i18n.locale" class="tk-home-combos">
       <transition mode="out-in" name="fade-in">
         <p :key="$root.$i18n.locale" class="tk-home-combos-title">
-          {{ $t("home.combosTitle").toUpperCase() }}
+          {{
+            $t("home.combosTitle")
+              .toString()
+              .toUpperCase()
+          }}
         </p>
       </transition>
       <v-tooltip right>
@@ -22,7 +26,14 @@
             ></v-autocomplete>
           </div>
         </template>
-        <span>{{ $t("selectText") }} {{ $t("survey").toLowerCase() }}</span>
+        <span
+          >{{ $t("selectText") }}
+          {{
+            $t("survey")
+              .toString()
+              .toLowerCase()
+          }}</span
+        >
       </v-tooltip>
 
       <v-tooltip right>
@@ -42,7 +53,12 @@
           </div>
         </template>
         <span
-          >{{ $t("selectText") }} {{ $t("infosAdmin1").toLowerCase() }}</span
+          >{{ $t("selectText") }}
+          {{
+            $t("infosAdmin1")
+              .toString()
+              .toLowerCase()
+          }}</span
         >
       </v-tooltip>
       <v-tooltip right>
@@ -62,7 +78,12 @@
           </div>
         </template>
         <span
-          >{{ $t("selectText") }} {{ $t("infosAdmin2").toLowerCase() }}</span
+          >{{ $t("selectText") }}
+          {{
+            $t("infosAdmin2")
+              .toString()
+              .toLowerCase()
+          }}</span
         >
       </v-tooltip>
       <v-tooltip right>
@@ -73,15 +94,22 @@
               flat
               dense
               clearable
-              :label="$t('camp')"
-              v-model="dataset.currentCamp"
-              :items="dataset.filteredTypedCampsList"
+              :label="$t('infosSite')"
+              v-model="dataset.currentSite"
+              :items="dataset.filteredTypedSitesList"
               item-text="name"
               return-object
             ></v-autocomplete>
           </div>
         </template>
-        <span>{{ $t("selectText") }} {{ $t("camp").toLowerCase() }}</span>
+        <span
+          >{{ $t("selectText") }}
+          {{
+            $t("infosSite")
+              .toString()
+              .toLowerCase()
+          }}</span
+        >
       </v-tooltip>
     </div>
   </transition>

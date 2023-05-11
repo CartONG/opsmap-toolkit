@@ -10,7 +10,6 @@
 import { Component, Vue, Watch } from "vue-property-decorator";
 import TKIndicatorComponent from "../TKIndicators/TKIndicator.vue";
 import { TKIndicator, TKIndicatorDefault } from "@/domain/survey/TKIndicator";
-import TKConfigurationModule from "@/store/modules/configuration/TKConfigurationModule";
 import TKDatasetModule from "@/store/modules/dataset/TKDatasetModule";
 @Component({
   components: {
@@ -18,15 +17,15 @@ import TKDatasetModule from "@/store/modules/dataset/TKDatasetModule";
   }
 })
 export default class TKHomeIndicators extends Vue {
-  indicator1: TKIndicator = TKIndicatorDefault(
-    TKConfigurationModule.configuration.indicators.home[0]
-  );
-  indicator2: TKIndicator = TKIndicatorDefault(
-    TKConfigurationModule.configuration.indicators.home[1]
-  );
-  indicator3: TKIndicator = TKIndicatorDefault(
-    TKConfigurationModule.configuration.indicators.home[2]
-  );
+  indicator1: TKIndicator | null = this.dataset.currentSurvey
+    ? TKIndicatorDefault(this.dataset.currentSurvey.defaultIndicators.home[0])
+    : null;
+  indicator2: TKIndicator | null = this.dataset.currentSurvey
+    ? TKIndicatorDefault(this.dataset.currentSurvey.defaultIndicators.home[1])
+    : null;
+  indicator3: TKIndicator | null = this.dataset.currentSurvey
+    ? TKIndicatorDefault(this.dataset.currentSurvey.defaultIndicators.home[2])
+    : null;
 
   get dataset() {
     return TKDatasetModule.dataset;
@@ -34,32 +33,38 @@ export default class TKHomeIndicators extends Vue {
 
   @Watch("dataset.lastModification")
   onLastModification() {
-    if (!this.dataset.currentCamp) {
+    if (!this.dataset.currentSite) {
       if (this.dataset.currentAdmin2) {
-        this.indicator1 = this.dataset.currentSurvey.indicators[
+        this.indicator1 = this.dataset.currentSurvey.computedIndicators[
           this.dataset.currentAdmin2.pcode
         ][0];
-        this.indicator2 = this.dataset.currentSurvey.indicators[
+        this.indicator2 = this.dataset.currentSurvey.computedIndicators[
           this.dataset.currentAdmin2.pcode
         ][1];
-        this.indicator3 = this.dataset.currentSurvey.indicators[
+        this.indicator3 = this.dataset.currentSurvey.computedIndicators[
           this.dataset.currentAdmin2.pcode
         ][2];
       } else {
         if (this.dataset.currentAdmin1) {
-          this.indicator1 = this.dataset.currentSurvey.indicators[
+          this.indicator1 = this.dataset.currentSurvey.computedIndicators[
             this.dataset.currentAdmin1.pcode
           ][0];
-          this.indicator2 = this.dataset.currentSurvey.indicators[
+          this.indicator2 = this.dataset.currentSurvey.computedIndicators[
             this.dataset.currentAdmin1.pcode
           ][1];
-          this.indicator3 = this.dataset.currentSurvey.indicators[
+          this.indicator3 = this.dataset.currentSurvey.computedIndicators[
             this.dataset.currentAdmin1.pcode
           ][2];
         } else {
-          this.indicator1 = this.dataset.currentSurvey.indicators[""][0];
-          this.indicator2 = this.dataset.currentSurvey.indicators[""][1];
-          this.indicator3 = this.dataset.currentSurvey.indicators[""][2];
+          this.indicator1 = this.dataset.currentSurvey.computedIndicators[
+            ""
+          ][0];
+          this.indicator2 = this.dataset.currentSurvey.computedIndicators[
+            ""
+          ][1];
+          this.indicator3 = this.dataset.currentSurvey.computedIndicators[
+            ""
+          ][2];
         }
       }
     }
@@ -68,19 +73,13 @@ export default class TKHomeIndicators extends Vue {
   @Watch("dataset", { immediate: true })
   onSurveyChanged() {
     if (this.dataset.currentSurvey) {
-      this.indicator1 = this.dataset.currentSurvey.indicators[""][0];
-      this.indicator2 = this.dataset.currentSurvey.indicators[""][1];
-      this.indicator3 = this.dataset.currentSurvey.indicators[""][2];
+      this.indicator1 = this.dataset.currentSurvey.computedIndicators[""][0];
+      this.indicator2 = this.dataset.currentSurvey.computedIndicators[""][1];
+      this.indicator3 = this.dataset.currentSurvey.computedIndicators[""][2];
     } else {
-      this.indicator1 = TKIndicatorDefault(
-        TKConfigurationModule.configuration.indicators.home[0]
-      );
-      this.indicator2 = TKIndicatorDefault(
-        TKConfigurationModule.configuration.indicators.home[1]
-      );
-      this.indicator3 = TKIndicatorDefault(
-        TKConfigurationModule.configuration.indicators.home[2]
-      );
+      this.indicator1 = null;
+      this.indicator2 = null;
+      this.indicator3 = null;
     }
   }
 }
@@ -102,6 +101,5 @@ export default class TKHomeIndicators extends Vue {
   justify-content: space-between;
   align-items: top;
   width: 30%;
-  border-radius: 15px;
 }
 </style>

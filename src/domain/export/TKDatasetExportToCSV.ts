@@ -1,6 +1,6 @@
 import { TKDataset } from "@/domain/survey/TKDataset";
 import {
-  TKCSVWrite as TKCSVWriteCurrentCamp,
+  TKCSVWrite as TKCSVWriteCurrentSite,
   TKCSVWriteCurrentSelection
 } from "@/secondary/export/TKCSVWriter";
 
@@ -8,17 +8,17 @@ import {
 // Helper methods
 // ////////////////////////////////////////////////////////////////////////////
 
-function computeCampExportFileBasename(dataset: TKDataset): string {
+function computeSiteExportFileBasename(dataset: TKDataset): string {
   if (dataset) {
-    const campId = dataset.currentCamp?.id ?? "";
-    const campName = dataset.currentCamp?.name ?? "";
+    const siteId = dataset.currentSite?.id ?? "";
+    const siteName = dataset.currentSite?.name ?? "";
     const submissionId = dataset.currentSubmission?.date.replaceAll("/", "-");
 
-    const filename = campId + "_" + campName + "_" + submissionId;
+    const filename = siteId + "_" + siteName + "_" + submissionId;
 
     return filename;
   }
-  return "camp-export";
+  return "site-export";
 }
 
 function computeSelectionExportFileBasename(dataset: TKDataset): string {
@@ -30,8 +30,8 @@ function computeSelectionExportFileBasename(dataset: TKDataset): string {
       if (dataset.currentAdmin2) {
         filename += "_" + dataset.currentAdmin2.name;
 
-        if (dataset.currentCamp) {
-          filename += "_" + dataset.currentCamp.name;
+        if (dataset.currentSite) {
+          filename += "_" + dataset.currentSite.name;
         }
       }
     }
@@ -40,11 +40,11 @@ function computeSelectionExportFileBasename(dataset: TKDataset): string {
   return "selection-export";
 }
 
-export function TKComputeCampExportFilename(
+export function TKComputeSiteExportFilename(
   dataset: TKDataset,
   extension: string
 ): string {
-  let name = computeCampExportFileBasename(dataset);
+  let name = computeSiteExportFileBasename(dataset);
   if (extension) {
     name += `.${extension}`;
   }
@@ -66,13 +66,13 @@ export function TKComputeSelectionExportFilename(
 // Write CSV file
 // ////////////////////////////////////////////////////////////////////////////
 
-export function TKDatasetExportCurrentCampToCSV(
+export function TKDatasetExportCurrentSiteToCSV(
   dataset: TKDataset,
   locale: string
 ) {
-  TKCSVWriteCurrentCamp(
+  TKCSVWriteCurrentSite(
     dataset,
-    TKComputeCampExportFilename(dataset, "csv"),
+    TKComputeSiteExportFilename(dataset, "csv"),
     locale
   );
 }

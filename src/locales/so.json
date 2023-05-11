@@ -1,0 +1,70 @@
+{
+    "title": "Opsmap",
+    "infosAdmin1": "Gobolka",
+    "infosAdmin2": "Degmo",
+    "infosSiteType": "Nooca goobta",
+    "manageBy": "Maaree",
+    "selectText": "Xulo a",
+    "survey": "Sahaminta Sahanka",
+    "infosSite": "Goobta",
+    "dashboardCredits": "isagu OPSMAP dashboard waa xalka furitaanka ee hoos yimaada shatiga MIT",
+    "ochaCredits": "Sawirada font-ka bini'aadanimo waxaa shati laga siiyay CC BY 3.0",
+    "appName": "Astaanta goobta",
+    "disclaimer": {
+        "text": "Nooca Beta"
+    },
+    "footer": {
+        "moreInfos": "Ku saabsan Opsmap",
+        "moreInfosText": "OPSMAP waxay ujeedadeedu tahay inay siiso hawl wadeenada samafalka xal u saamaxaya inay ku soo koobaan gobolka adeegyada ka dhex jira goobaha kala duwan ee lagu martiqaado barakacayaasha. Adigoo si otomaatig ah u soo saaraya \"astaamaha goobta\", OPSMAPs waxay u oggolaaneysaa hawl wadeenada samafalka inay si dhakhso leh u helaan dulmar guud oo ku saabsan macluumaadka lagama maarmaanka u ah maareynta goobta. Isticmaalayaashu waxay si fudud uga heli karaan macluumaadka iyagoo adeegsanaya shabakadda internetka ( dashboard ), oo u istcimaal si ay u aqoonsadaan qodobbada u baahan tallaabo deg deg ah. Laba nooc oo OPSMAP ah ayaa la heli karaa: nooc \"caadiga ah\" iyo nooca \"caado\". <br /> Nooca caadiga ah waa xalka isha furan, oo ay soo saartay CartONG sanadkii 2021, iyada oo la kaashanayo qaybta UNHCR GDS (Liisanka MIT, nooca hadda ah: {version}). Sawirro la adeegsaday ayaa ka yimid \"Astaamaha bina-aadamnimada\" keydka macluumaadka ( Credit OCHA, oo shati ka hoosaysa CC BY 3.0 )",
+        "partnerLed": "Hogaanka Kooxda",
+        "partnerCoordination": "Isuduwidda iyo taageerada IM",
+        "partnerFieldwork": "Shaqo goob",
+        "partnerWebdev": "Webdev"
+    },
+    "trafficlight": {
+        "ok": "OK",
+        "warning": "Digniin",
+        "danger": "Khatar",
+        "critical": "Halis",
+        "other": "Kale"
+    },
+    "main": {
+        "switchPage": "Bog"
+    },
+    "home": {
+        "lastUpdate": "Cusboonaysiinta ugu dambeysay",
+        "moreInfosTitle": "Macluumaad Dheeraad ah",
+        "combosTitle": "Ku soo dhowow khariidada",
+        "exportToCSV": "Dhoofinta xulashada hadda ee CSV"
+    },
+    "site": {
+        "exportPreffix": "Dhoofinta sida",
+        "infosCoordinates": "isku-duwayaasha gps",
+        "hideUnanswered": "Jawaabta kaliya",
+        "sortByTrafficLight": "Kala sooc",
+        "subtitlePlaceholder": "Ma Jiro Goob la Doortay",
+        "extraTools": "Qalabka Dheeraadka ah",
+        "datePreffix": "Warbixinta",
+        "filter": "Shaandhada"
+    },
+    "charts": {
+        "agePyramidTitle": "Pyramid da 'ah",
+        "doughnutTitle": "Koox gaar ah",
+        "polarTitle": "Noocyada",
+        "titleY": "Range da'da",
+        "titleX": "Dadweynaha",
+        "female": "Dheddig",
+        "male": "Lab"
+    },
+    "map": {
+        "legendBasemaps": "Xulo basemap",
+        "legendZoomIn": "Soo dhaweyn",
+        "legendZoomOut": "Soo dhowow",
+        "legendBbox": "Extensive Extensive",
+        "legendFilters": "Muuji / Qari halyeey"
+    },
+    "indicator": {
+        "siteCount": "Goobaha",
+        "peopleCount": "Dadka"
+    }
+}

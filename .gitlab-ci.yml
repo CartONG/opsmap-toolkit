@@ -1,9 +1,61 @@
+image: node:16
+
+stages:
+  - install_dependencies
+  - test
+  - deploy
+
+variables:
+  npm_config_cache: "$CI_PROJECT_DIR/.npm"
+
+cache:
+  key:
+    files:
+      - package.json
+  paths:
+    - .npm
+    - node_modules
+  policy: pull
+
+# Install dependencies
+install_dependencies:
+  stage: install_dependencies
+  cache:
+    key:
+      files:
+        - package.json
+    paths:
+      - .npm
+      - node_modules
+    policy: push
+  script:
+    - npm ci --no-progress --no-audit --legacy-peer-deps
+  tags:
+    - opsmap
+  rules:
+    - if: $CI_COMMIT_BRANCH == "pages"
+      when: always
+    - if: $CI_COMMIT_BRANCH != "pages"
+      when: manual
+
+# Job: test
+test:
+  needs: ["install_dependencies"]
+  stage: test
+  script:
+    - npm run test:unit
+  tags:
+    - opsmap
+  artifacts:
+    paths:
+      - coverage
+
+# job: build_and_deploy
 pages:
-  image: node:latest
+  needs: ["test"]
   stage: deploy
   script:
-    - npm install --progress=false
-    - npm run build
+    - npm run build-gitlab
     - rm -rf public
     - mkdir public
     - cp -r dist/* public
@@ -14,5 +66,3 @@ pages:
       - public
   tags:
     - opsmap
-  only:
-    - pages

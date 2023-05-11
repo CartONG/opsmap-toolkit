@@ -14,11 +14,12 @@
   },
   "main": "dist/opsmap-toolkit.umd.min.js",
   "dependencies": {
+    "@turf/centroid": "^6.5.0",
     "@types/chart.js": "^2.9.34",
     "@types/geojson": "^7946.0.8",
     "@types/mapbox-gl": "^2.4.0",
     "@types/papaparse": "^5.2.6",
-    "chart.js": "^3.5.1",
+    "chart.js": "^3.9.1",
     "core-js": "^3.16.2",
     "git-describe": "^4.1.0",
     "jspdf": "^2.3.1",
@@ -67,7 +68,7 @@
     "vue-cli-plugin-vuetify": "^2.4.2",
     "vue-template-compiler": "^2.6.14",
     "vuetify-loader": "^1.7.0",
-    "vuex-module-decorators": "^2.0.0"
+    "vuex-module-decorators": "^1.2.0"
   },
   "license": "MIT",
   "types": "dist/src/entry-point-lib.d.ts"

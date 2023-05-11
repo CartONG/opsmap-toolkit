@@ -37,6 +37,7 @@ import {
   TKBasemapDescription,
   TKBaseMapsCollection
 } from "@/domain/map/TKBasemaps";
+import { TKColors } from "@/domain/utils/TKColors";
 import { Component, Vue, Prop } from "vue-property-decorator";
 
 @Component
@@ -50,7 +51,8 @@ export default class TKMapBasemapPicker extends Vue {
   }
   setBasemapSelectorStyle(bm: TKBasemapDescription) {
     return {
-      border: this.basemaps.selected === bm.id ? "#428fdf solid 3px" : "",
+      border:
+        this.basemaps.selected === bm.id ? `${TKColors.ACCENT} solid 3px` : "",
       backgroundImage: `url(${bm.img})`
     };
   }
@@ -68,10 +70,8 @@ export default class TKMapBasemapPicker extends Vue {
   height: 40px;
   width: 40px;
   background-color: var(--v-background-base);
-  border: 2px solid var(--v-border-base);
+  border: 1px solid var(--v-border-base);
   border-radius: 50%;
-  box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2),
-    0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
 }
 
 .basemap-selector {

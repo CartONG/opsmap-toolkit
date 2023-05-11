@@ -3,10 +3,10 @@
     "infosAdmin1": "Estado",
     "infosAdmin2": "Cidade",
     "infosSiteType": "Typo",
-    "manageBy": "Gestão do Abrigo",
+    "manageBy": "Gestão do Local",
     "selectText": "Selecione um",
     "survey": "Pesquisa",
-    "camp": "Abrigo",
+    "infosSite": "Local",
     "dashboardCredits": "O painel de controle OPSMAP é uma solução de código aberto sob a licença do MIT",
     "ochaCredits": "Os pictogramas de fontes humanitárias são licenciados sob a licença CC BY 3.0",
     "appName": "Perfil do sítio",
@@ -18,7 +18,7 @@
         "moreInfosText": "O objectivo do OPSMAP é fornecer aos actores humanitários uma solução que lhes permita resumir o estado dos serviços nos vários locais que acolhem as pessoas deslocadas. Ao produzir automaticamente \"perfis de sítios\", os OPSMAPs fornecem uma visão geral rápida de informações essenciais para a gestão de sítios. Os utilizadores podem facilmente obter informações através da interface web (painel de instrumentos), e utilizá-las para identificar questões que exijam uma acção urgente. Estão disponíveis duas versões de OPSMAP: uma versão \"standard\" e uma versão \"personalizada\". <br /> A versão standard é uma solução de código aberto, desenvolvida pela CartONG em 2021, com o apoio da secção SWM do ACNUR (licença MIT, versão actual: {version}). Os pictogramas utilizados provêm da base de dados \"Ícones humanitários\" (Credit OCHA, licenciado sob CC BY 3.0)",
         "partnerLed": "Líder do grupo",
         "partnerCoordination": "Coordenação e IM apoio ",
-        "partnerFieldwork": "Trabalho de campo",
+        "partnerFieldwork": "Trabalho de siteo",
         "partnerWebdev": "Desenvolvimento Web"
     },
     "main": {
@@ -61,5 +61,9 @@
         "legendZoomOut": "Reduzir o zoom",
         "legendBbox": "Extensão padrão",
         "legendFilters": "Mostrar / Ocultar legenda"
+    },
+    "indicator": {
+        "siteCount": "Abrigos",
+        "peopleCount": "Indivíduos"
     }
 }

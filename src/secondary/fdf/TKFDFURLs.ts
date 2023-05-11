@@ -17,8 +17,7 @@ export async function TKReadFDFURLsCollection(
   infos: TKFDFInfos
 ): Promise<TKFDFUrlsCollection> {
   const rawUrl: TKFDFUrlRaw[] = await TKCSVParse<TKFDFUrlRaw[]>(
-    TKFDFFiles.URLS,
-    infos.folder,
+    `${process.env.BASE_URL}/${infos.folder}/${TKFDFFiles.URLS}.csv`,
     false
   );
 

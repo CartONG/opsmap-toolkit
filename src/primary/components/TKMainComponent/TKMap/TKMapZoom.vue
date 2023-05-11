@@ -14,10 +14,10 @@
             <v-icon>mdi-plus</v-icon>
           </v-btn>
         </template>
-        <span>{{ $t("map.legendZoomIn") }}</span>
+        <div>{{ $t("map.legendZoomIn") }}</div>
       </v-tooltip>
     </div>
-    <div class="tk-hseparator" />
+    <div class="tk-hseparator"></div>
     <div class="tk-icon-container">
       <v-tooltip left>
         <template v-slot:activator="{ on, attrs }">
@@ -35,7 +35,7 @@
         <span>{{ $t("map.legendZoomOut") }}</span>
       </v-tooltip>
     </div>
-    <div class="tk-hseparator" />
+    <div class="tk-hseparator"></div>
     <div class="tk-icon-container">
       <v-tooltip left>
         <template v-slot:activator="{ on, attrs }">
@@ -47,13 +47,12 @@
             v-bind="attrs"
             v-on="on"
           >
-            <v-icon>mdi-stretch-to-page-outline</v-icon>
+            <v-icon>mdi-arrow-expand</v-icon>
           </v-btn>
         </template>
         <span>{{ $t("map.legendBbox") }}</span>
       </v-tooltip>
     </div>
-    <div class="tk-hseparator" />
   </div>
 </template>
 
@@ -65,14 +64,12 @@ export default class TKMapZoom extends Vue {}
 </script>
 <style scoped>
 .tk-map-zoom {
-  border-radius: 8px;
+  border-radius: 4px;
   overflow: hidden;
-  border: 2px solid var(--v-border-base);
+  border: 1px solid var(--v-border-base);
   background-color: var(--v-background-base);
   display: flex;
   flex-flow: column nowrap;
-  box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2),
-    0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
 }
 
 .tk-icon-container {

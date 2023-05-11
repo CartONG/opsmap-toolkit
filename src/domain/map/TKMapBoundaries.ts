@@ -4,18 +4,22 @@ import { TKDataset, TKAdminFilters } from "@/domain/survey/TKDataset";
 import { TKGeoDataset } from "@/domain/map/TKGeoDataset";
 import { TKMapLayers, TKMapLayersSource } from "./TKMapLayers";
 import { TKFDFSpatialDescription } from "../fdf/TKFDFSpatialDescription";
+import { TKOpsmapSpatialConfiguration } from "../opsmapConfig/TKOpsmapConfiguration";
 
 export class TKMapBoundaries {
   public admin1: FeatureCollection;
   public admin2: FeatureCollection;
+  public dbConfig: TKOpsmapSpatialConfiguration["dbConfig"];
   public spatialDescription: TKFDFSpatialDescription;
 
   constructor(
     geodataset: TKGeoDataset,
+    dbConfig: TKOpsmapSpatialConfiguration["dbConfig"],
     spatialDescription: TKFDFSpatialDescription
   ) {
     this.admin1 = geodataset.admin1;
     this.admin2 = geodataset.admin2;
+    this.dbConfig = dbConfig;
     this.spatialDescription = spatialDescription;
   }
 
@@ -47,7 +51,7 @@ export class TKMapBoundaries {
           this.mapFitBounds(setZoom, map);
         }
         break;
-      case TKAdminFilters.CAMP:
+      case TKAdminFilters.SITE:
       case TKAdminFilters.ADMIN2:
         setZoom = setZoom2;
         if (setZoom) {
@@ -57,11 +61,12 @@ export class TKMapBoundaries {
       default:
         break;
     }
-    if (dataset.currentCamp) {
+    if (dataset.currentSite) {
       this.mapFitBounds(
-        new LngLat(dataset.currentCamp.lng, dataset.currentCamp.lat).toBounds(
-          100
-        ),
+        new LngLat(
+          dataset.currentSite.coordinates.lng,
+          dataset.currentSite.coordinates.lat
+        ).toBounds(100),
         map
       );
     }
@@ -98,14 +103,12 @@ export class TKMapBoundaries {
         } else if (
           dataset.currentAdmin1 &&
           dataset.currentAdmin1.pcode ===
-            item.properties[this.spatialDescription.adm1DBPcode]
+            item.properties[this.dbConfig.adm1DBPcode]
         ) {
           shouldMapZoom = this.getBoundingBoxFromCoordinatesArray(item);
           item.properties.display = "focus";
         } else if (
-          currentadmin1List.includes(
-            item.properties[this.spatialDescription.adm1DBPcode]
-          )
+          currentadmin1List.includes(item.properties[this.dbConfig.adm1DBPcode])
         ) {
           item.properties.display = "hide";
         } else {
@@ -130,14 +133,12 @@ export class TKMapBoundaries {
         if (
           dataset.currentAdmin2 &&
           dataset.currentAdmin2.pcode ===
-            item.properties[this.spatialDescription.adm2DBPcode]
+            item.properties[this.dbConfig.adm2DBPcode]
         ) {
           shouldMapZoom = this.getBoundingBoxFromCoordinatesArray(item);
           item.properties.display = "focus";
         } else if (
-          currentadmin2List.includes(
-            item.properties[this.spatialDescription.adm2DBPcode]
-          )
+          currentadmin2List.includes(item.properties[this.dbConfig.adm2DBPcode])
         ) {
           item.properties.display = "hide";
         } else {

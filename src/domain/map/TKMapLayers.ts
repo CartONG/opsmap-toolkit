@@ -1,12 +1,13 @@
 import { TKFDFSiteTypeCollection } from "../fdf/TKFDFSiteTypes";
+import { TKColors } from "../utils/TKColors";
 
-// admin1Source, admin2Source, countryMask, selectedCamp, notSelectedCamps
+// admin1Source, admin2Source, countryMask, selectedSite, notSelectedSites
 export enum TKMapLayersSource {
   COUNTRYMASKSOURCE = "countryMask",
   ADMIN1SOURCE = "admin1Source",
   ADMIN2SOURCE = "admin2Source",
-  SELECTEDCAMPSOURCE = "selectedCamp",
-  NOTSELECTEDCAMPSSOURCE = "notSelectedCamps"
+  SELECTEDSITESOURCE = "selectedSite",
+  NOTSELECTEDSITESSOURCE = "notSelectedSites"
 }
 export enum TKMapLayers {
   ADMIN1LAYER = "admin1Layer",
@@ -14,8 +15,8 @@ export enum TKMapLayers {
   ADMIN2LAYER = "admin2Layer",
   ADMIN2BORDERLAYER = "admin2BorderLayer",
   COUNTRYMASKLAYER = "countryMaskLayer",
-  SELECTEDCAMPLAYER = "selectedCampLayer",
-  NOTSELECTEDCAMPSLAYER = "notSelectedCampsLayer",
+  SELECTEDSITELAYER = "selectedSiteLayer",
+  NOTSELECTEDSITESLAYER = "notSelectedSitesLayer",
   CLUSTERSCIRCLELAYER = "clustersCircle",
   CLUSTERSCOUNTLAYER = "clustersCount"
 }
@@ -40,7 +41,7 @@ export function computeMapLayersStyle(
       source: TKMapLayersSource.COUNTRYMASKSOURCE,
       layout: {},
       paint: {
-        "fill-color": "#142f4b",
+        "fill-color": TKColors.DARK_GREY,
         "fill-opacity": 0,
         "fill-opacity-transition": {
           duration: 1000
@@ -53,7 +54,7 @@ export function computeMapLayersStyle(
       source: TKMapLayersSource.ADMIN1SOURCE,
       layout: {},
       paint: {
-        "fill-color": "#428fdf",
+        "fill-color": TKColors.ACCENT,
         "fill-opacity": [
           "match",
           ["get", "display"],
@@ -73,7 +74,7 @@ export function computeMapLayersStyle(
       source: TKMapLayersSource.ADMIN1SOURCE,
       layout: {},
       paint: {
-        "line-color": "#428fdf",
+        "line-color": TKColors.ACCENT,
         "line-width": [
           "match",
           ["get", "display"],
@@ -104,7 +105,7 @@ export function computeMapLayersStyle(
       source: TKMapLayersSource.ADMIN2SOURCE,
       layout: {},
       paint: {
-        "fill-color": "#428fdf",
+        "fill-color": TKColors.ACCENT,
         "fill-opacity": [
           "match",
           ["get", "display"],
@@ -124,7 +125,7 @@ export function computeMapLayersStyle(
       source: TKMapLayersSource.ADMIN2SOURCE,
       layout: {},
       paint: {
-        "line-color": "#428fdf",
+        "line-color": TKColors.ACCENT,
         "line-width": [
           "match",
           ["get", "display"],
@@ -152,17 +153,17 @@ export function computeMapLayersStyle(
     [TKMapLayers.CLUSTERSCIRCLELAYER]: {
       id: TKMapLayers.CLUSTERSCIRCLELAYER,
       type: "circle",
-      source: TKMapLayersSource.NOTSELECTEDCAMPSSOURCE,
+      source: TKMapLayersSource.NOTSELECTEDSITESSOURCE,
       filter: ["has", "point_count"],
       paint: {
-        "circle-color": "#000000",
+        "circle-color": TKColors.DARK_GREY,
         "circle-radius": ["step", ["get", "point_count"], 10, 10, 15, 30, 20]
       }
     },
     [TKMapLayers.CLUSTERSCOUNTLAYER]: {
       id: TKMapLayers.CLUSTERSCOUNTLAYER,
       type: "symbol",
-      source: TKMapLayersSource.NOTSELECTEDCAMPSSOURCE,
+      source: TKMapLayersSource.NOTSELECTEDSITESSOURCE,
       filter: ["has", "point_count"],
       layout: {
         "text-field": "{point_count_abbreviated}",
@@ -170,13 +171,13 @@ export function computeMapLayersStyle(
         "text-size": 12
       },
       paint: {
-        "text-color": "#ffffff"
+        "text-color": TKColors.WHITE
       }
     },
-    [TKMapLayers.NOTSELECTEDCAMPSLAYER]: {
-      id: TKMapLayers.NOTSELECTEDCAMPSLAYER,
+    [TKMapLayers.NOTSELECTEDSITESLAYER]: {
+      id: TKMapLayers.NOTSELECTEDSITESLAYER,
       type: "symbol",
-      source: TKMapLayersSource.NOTSELECTEDCAMPSSOURCE,
+      source: TKMapLayersSource.NOTSELECTEDSITESSOURCE,
       filter: ["!", ["has", "point_count"]],
       layout: {
         "icon-image": [
@@ -185,13 +186,13 @@ export function computeMapLayersStyle(
           ...siteTypes,
           "planned_site" // everything else
         ],
-        "icon-size": 0.25
+        "icon-size": 0.5
       }
     },
-    [TKMapLayers.SELECTEDCAMPLAYER]: {
-      id: TKMapLayers.SELECTEDCAMPLAYER,
+    [TKMapLayers.SELECTEDSITELAYER]: {
+      id: TKMapLayers.SELECTEDSITELAYER,
       type: "symbol",
-      source: TKMapLayersSource.SELECTEDCAMPSOURCE,
+      source: TKMapLayersSource.SELECTEDSITESOURCE,
       layout: {
         "icon-image": [
           "match",
@@ -199,7 +200,7 @@ export function computeMapLayersStyle(
           ...siteSelectedTypes,
           "planned_site"
         ],
-        "icon-size": 0.25
+        "icon-size": 0.5
       }
     }
   };

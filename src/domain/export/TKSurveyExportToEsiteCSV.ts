@@ -34,22 +34,22 @@ function computeEsiteCSVContent(
 
     rows.push(header);
 
-    for (const camp of survey.camps) {
-      const submission = camp.submissions[0];
+    for (const site of survey.sites) {
+      const submission = site.submissions[0];
       if (submission) {
-        const campAsCSVLine = [
-          camp.lat.toString(),
-          camp.lng.toString(),
-          camp.name,
-          camp.type.formattedName,
+        const siteAsCSVLine = [
+          site.coordinates.lat.toString(),
+          site.coordinates.lng.toString(),
+          site.name,
+          site.type.formattedName,
           submission.date
         ];
 
         submission.indicators.map(indicator => {
           if (indicator.type === TKIndicatorType.OCCUPATION) {
-            campAsCSVLine.push(indicator.valueNumber.toString());
+            siteAsCSVLine.push(indicator.valueNumber.toString());
           } else {
-            campAsCSVLine.push(TKGetLocalValue(indicator.valueLabel, locale));
+            siteAsCSVLine.push(TKGetLocalValue(indicator.valueLabel, locale));
           }
         });
 
@@ -63,15 +63,15 @@ function computeEsiteCSVContent(
             );
 
             if (item && item.type === TKSubmissionEntryType.TEXT) {
-              campAsCSVLine.push(
+              siteAsCSVLine.push(
                 TKGetLocalValue(item.answerLabel, locale).replace("\n", " ")
               );
             } else {
-              campAsCSVLine.push("");
+              siteAsCSVLine.push("");
             }
           }
         }
-        rows.push(campAsCSVLine);
+        rows.push(siteAsCSVLine);
       }
     }
 

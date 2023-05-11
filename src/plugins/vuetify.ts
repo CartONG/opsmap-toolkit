@@ -3,6 +3,7 @@
  * @module
  */
 
+import { TKColors } from "@/domain/utils/TKColors";
 import Vue from "vue";
 import Vuetify from "vuetify/lib/framework";
 
@@ -29,48 +30,46 @@ interface ParsedThemeItem {
   [name: string]: string
 }
 */
+import PDFIcon from "./Icons/PDFIcon.vue";
+import CSVIcon from "./Icons/CSVIcon.vue";
 
 export default new Vuetify({
   theme: {
     options: { customProperties: true }, // Generates CSS var
     themes: {
       light: {
-        accent: "#428fdf",
+        appBackground: "#fdfdfa",
+        accent: TKColors.ACCENT,
         primary: "#333333",
-        secondary: "#999999",
-        background: "#ffffff",
+        secondary: TKColors.SECONDARY,
+        background: TKColors.BACKGROUND,
         discrete: "#d8d8d8",
         sectionTitle: "#a1a1a1",
-        backgroundSecondary: "#fafafa",
-        autocomplete: "#000000",
-        border: "#f1f3f3",
-        thematicBackground: "#f1f3f3",
+        backgroundSecondary: TKColors.BACKGROUND_SECONDARY,
+        autocomplete: TKColors.DARK_GREY,
+        border: TKColors.DARK_GREY,
+        thematicBackground: "#fff",
         thematicHeader: "#ffffff",
-        thematicBorder: "#f1f3f3",
-        campSelector: "#f0fbff",
+        thematicBorder: "#000000",
         placeholder: "#f3f3f3",
         placeholderAccent: "#f6f6f6",
-        disabled: "#bdbdbd"
-      },
-      dark: {
-        accent: "#428fdf",
-        primary: "#aaaaaa",
-        secondary: "#777777",
-        background: "#121212",
-        sectionTitle: "#a1a1a1",
-        autocomplete: "#f2f2f2",
-        border: "#2c2c2c",
-        discrete: "#393939",
-        thematicBackground: "#171717",
-        thematicHeader: "#2c2c2c",
-        thematicBorder: "#2c2c2c",
-        backgroundSecondary: "#171717",
-        campSelector: "#000305",
-        placeholder: "#171717",
-        placeholderAccent: "#1a1a1a",
-        disabled: "#717171"
+        disabled: "#bdbdbd",
+        selectedLanguage: "#EC6B4D",
+        notSelectedLanguage: TKColors.DARK_GREY,
+        selectedButton: TKColors.DARK_GREY,
+        notSelectedButton: "#919191",
+        boxShadow: "#000000"
       }
-    },
-    dark: true
+    }
+  },
+  icons: {
+    values: {
+      filePDF: {
+        component: PDFIcon
+      },
+      fileCSV: {
+        component: CSVIcon
+      }
+    }
   }
 });

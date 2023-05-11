@@ -1,0 +1,70 @@
+{
+    "title": "Opsmap",
+    "infosAdmin1": "Región",
+    "infosAdmin2": "Okres",
+    "infosSiteType": "Typ lokality",
+    "manageBy": "Spravovať podľa",
+    "selectText": "Vyberte si",
+    "survey": "Prieskum",
+    "infosSite": "Webová lokalita",
+    "dashboardCredits": "Prístrojová doska OPSMAP je opensource riešenie pod licenciou MIT",
+    "ochaCredits": "Piktogramy humanitárneho písma sú licencované pod CC BY 3.0",
+    "appName": "Profil lokality",
+    "disclaimer": {
+        "text": "Beta verzia"
+    },
+    "footer": {
+        "moreInfos": "O službe Opsmap",
+        "moreInfosText": "OPSMAP aims at providing to humanitarian actors a solution that allows them to summarized the state of services within the various sites hosting displaced persons. By automatically producing \"site profiles\", OPSMAPs allow humanitarian actors to quickly obtain an overview of the information essential for site management. Users can easily obtain information via the web interface (dashboard), and use it to identify points that require urgent action. Two versions of OPSMAP are available: a \"standard\" version and a \"custom\" version. <br /> The standard version is an open source solution, developed by CartONG in 2021, with the support of the UNHCR GDS section (MIT license, current version: {version}). Pictograms used come from the \"Humanitarian icons\" database (Credit OCHA, licensed under CC BY 3.0)",
+        "partnerLed": "Vedúci klastra",
+        "partnerCoordination": "Koordinácia a podpora IM",
+        "partnerFieldwork": "Práca v teréne",
+        "partnerWebdev": "Webdev"
+    },
+    "trafficlight": {
+        "ok": "OK",
+        "warning": "Upozornenie",
+        "danger": "Nebezpečenstvo",
+        "critical": "Kritické",
+        "other": "Iné"
+    },
+    "main": {
+        "switchPage": "Stránka prepínača"
+    },
+    "home": {
+        "lastUpdate": "Posledná aktualizácia",
+        "moreInfosTitle": "Viac informácií",
+        "combosTitle": "Priblíženie mapy",
+        "exportToCSV": "Exportovať aktuálny výber do CSV"
+    },
+    "site": {
+        "exportPreffix": "Exportovať ako",
+        "infosCoordinates": "gps súradnice",
+        "hideUnanswered": "Len s odpoveďou",
+        "sortByTrafficLight": "Triediť",
+        "subtitlePlaceholder": "Žiadne vybrané miesto",
+        "extraTools": "Ďalšie nástroje",
+        "datePreffix": "Správa",
+        "filter": "Filter"
+    },
+    "charts": {
+        "agePyramidTitle": "Veková pyramída",
+        "doughnutTitle": "Špecifická skupina",
+        "polarTitle": "Typy",
+        "titleY": "Vekový rozsah",
+        "titleX": "Obyvateľstvo",
+        "female": "Ženy",
+        "male": "Muži"
+    },
+    "map": {
+        "legendBasemaps": "Výber základnej mapy",
+        "legendZoomIn": "Priblíženie",
+        "legendZoomOut": "Zväčšenie",
+        "legendBbox": "Predvolený rozsah",
+        "legendFilters": "Zobraziť / skryť legendu"
+    },
+    "indicator": {
+        "siteCount": "Stránky",
+        "peopleCount": "Národy"
+    }
+}

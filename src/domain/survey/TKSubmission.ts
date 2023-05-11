@@ -2,13 +2,14 @@
 import { TKFDF } from "@/domain/fdf/TKFDF";
 import {
   TKCreateSubmissionEntryText,
-  TKSubmissionEntryPolar,
-  TKSubmissionEntryDoughnut,
-  TKSubmissionEntryAgePyramid,
   TKSubmissionEntryType,
   TKCreateSubmissionEntryList,
   TKCreateSubmissionEntryBullet
 } from "./TKSubmissionEntry";
+import {
+  TKChartData,
+  TKCreateSubmissionChart
+} from "./TKCreateSubmissionChart";
 import {
   TKSubmissionThematic,
   TKCreateSubmissionThematic
@@ -19,7 +20,7 @@ import { TKFDFSubmissionItemType } from "../fdf/TKFDFSubmissionsRules";
 import { TKCompare, TKCompute } from "../utils/TKOperator";
 import { TKOperatorComputation } from "../utils/TKOperator";
 import { TKOperatorComparison } from "../utils/TKOperator";
-import { TKFDFIndicatorCamp, TKFDFIndicatorType } from "../fdf/TKFDFIndicators";
+import { TKFDFIndicatorSite, TKFDFIndicatorType } from "../fdf/TKFDFIndicators";
 import { evaluate, round } from "mathjs";
 import { TKSurveyOptions } from "./TKSurvey";
 
@@ -76,7 +77,7 @@ function getLabelForIndicator(
   return { en: "-" };
 }
 function computeSubmissionIndicator(
-  descr: TKFDFIndicatorCamp,
+  descr: TKFDFIndicatorSite,
   data: Record<string, TKSubmissionThematic>
 ): TKIndicator {
   if (descr.type === TKFDFIndicatorType.OCCUPATION) {
@@ -157,75 +158,6 @@ function computeSubmissionIndicator(
 // Create the chart associated to the submission
 // ////////////////////////////////////////////////////////////////////////////
 
-type ChartData = {
-  id: string;
-  thematic: string;
-  data: Array<{
-    field: string;
-    value: string;
-    type: string;
-  }>;
-};
-
-function createChartInSubmission(
-  chartData: ChartData,
-  submission: Record<string, TKSubmissionThematic>,
-  surveyConfiguration: TKFDF
-) {
-  if (chartData.id.includes("age_pyramid")) {
-    const malesEntries = chartData.data
-      .filter(item => item.type === "m")
-      .reverse();
-    const femalesEntries = chartData.data
-      .filter(item => item.type === "f")
-      .reverse();
-
-    const entry: TKSubmissionEntryAgePyramid = {
-      type: TKSubmissionEntryType.CHART_PYRAMID,
-      chartid: chartData.id,
-      isAnswered: true,
-      title: surveyConfiguration.fieldsLabels[chartData.id],
-      malesEntries: malesEntries.map(item => Number(item.value)),
-      femalesEntries: femalesEntries.map(item => Number(item.value)),
-      malesLabels: malesEntries.map(
-        item => surveyConfiguration.fieldsLabels[item.field]
-      ),
-      femalesLabels: femalesEntries.map(
-        item => surveyConfiguration.fieldsLabels[item.field]
-      )
-    };
-    submission[chartData.thematic].data.push(entry);
-  } else if (chartData.id.includes("doughnut")) {
-    const entry: TKSubmissionEntryDoughnut = {
-      type: TKSubmissionEntryType.CHART_DOUGHNUT,
-      chartid: chartData.id,
-      isAnswered: true,
-      title: surveyConfiguration.fieldsLabels[chartData.id],
-      entries: chartData.data.map(item => {
-        return {
-          value: Number(item.value),
-          label: surveyConfiguration.fieldsLabels[item.field]
-        };
-      })
-    };
-    submission[chartData.thematic].data.push(entry);
-  } else if (chartData.id.includes("polar_area_chart")) {
-    const entry: TKSubmissionEntryPolar = {
-      type: TKSubmissionEntryType.CHART_POLAR,
-      chartid: chartData.id,
-      isAnswered: true,
-      title: surveyConfiguration.fieldsLabels[chartData.id],
-      entries: chartData.data.map(item => {
-        return {
-          value: Number(item.value),
-          label: surveyConfiguration.fieldsLabels[item.field]
-        };
-      })
-    };
-    submission[chartData.thematic].data.push(entry);
-  }
-}
-
 // ////////////////////////////////////////////////////////////////////////////
 // Create the submission
 // ////////////////////////////////////////////////////////////////////////////
@@ -243,11 +175,7 @@ export function TKCreateSubmission(
   }
 
   // Init chart
-  const currentChart: ChartData = {
-    id: "",
-    thematic: "",
-    data: []
-  };
+  const charts: Record<string, TKChartData> = {};
 
   for (const key in fdf.submissionsRules) {
     const rule = fdf.submissionsRules[key];
@@ -267,29 +195,21 @@ export function TKCreateSubmission(
         }
       }
       if (display) {
-        // If charts
+        // If charts: fill the charts record
         if (rule.chartId) {
           const value = submissionItem[rule.fieldName];
 
-          // If exists chart
-          if (currentChart.id && rule.chartId !== currentChart.id) {
-            createChartInSubmission(currentChart, submission, fdf);
-
-            // Clear current submission
-            currentChart.id = "";
-            currentChart.thematic = "";
-            currentChart.data = [];
-          }
-
-          // Init currentChart
-          if (!currentChart.id) {
-            currentChart.id = rule.chartId;
-            currentChart.thematic = rule.thematicGroup;
-            currentChart.data = [];
+          // // Init currentChart
+          if (!charts[rule.chartId]) {
+            charts[rule.chartId] = {
+              id: rule.chartId,
+              thematic: rule.thematicGroup,
+              data: []
+            };
           }
 
           // Accumulate Chart data
-          currentChart.data.push({
+          charts[rule.chartId].data.push({
             field: rule.fieldName,
             value: value,
             type: rule.chartData
@@ -360,24 +280,14 @@ export function TKCreateSubmission(
               }
               break;
           }
-
-          // If exists chart
-          if (currentChart.id) {
-            createChartInSubmission(currentChart, submission, fdf);
-
-            // Clear current submission
-            currentChart.id = "";
-            currentChart.thematic = "";
-            currentChart.data = [];
-          }
         }
       }
     }
   }
 
   // if a current pyramid is ongoing - push it before ending
-  if (currentChart.id) {
-    createChartInSubmission(currentChart, submission, fdf);
+  for (const chart of Object.values(charts)) {
+    TKCreateSubmissionChart(chart, submission, fdf);
   }
 
   //  Solution to filter thematics if nothing has been answered. ////////////////////////

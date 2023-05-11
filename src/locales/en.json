@@ -6,7 +6,7 @@
     "manageBy": "Manage By",
     "selectText": "Select a",
     "survey": "Survey",
-    "camp": "Camp",
+    "infosSite": "Site",
     "dashboardCredits": "The OPSMAP dashboard is an opensource solution under the MIT license",
     "ochaCredits": "The Humanitarian font pictograms are licensed under the CC BY 3.0",
     "appName": "Site profile",
@@ -45,7 +45,7 @@
         "subtitlePlaceholder": "No Site Selected",
         "extraTools": "Extra Tools",
         "datePreffix": "Report",
-        "filter": "Filter"
+        "filter": "Search.."
     },
     "charts": {
         "agePyramidTitle": "Age Pyramid",
@@ -62,5 +62,9 @@
         "legendZoomOut": "Zoom out",
         "legendBbox": "Default Extent",
         "legendFilters": "Show / Hide legend"
+    },
+    "indicator": {
+        "siteCount": "Sites",
+        "peopleCount": "Peoples"
     }
 }

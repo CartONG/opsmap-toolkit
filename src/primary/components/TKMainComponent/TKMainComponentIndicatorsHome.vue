@@ -12,7 +12,7 @@ import { TKHomeIndicators } from "./TKHomeComponents";
     TKHomeIndicators
   }
 })
-export default class TKMainComponentIndicatorsCamp extends Vue {}
+export default class TKMainComponentIndicatorsSite extends Vue {}
 </script>
 
 <style scoped></style>

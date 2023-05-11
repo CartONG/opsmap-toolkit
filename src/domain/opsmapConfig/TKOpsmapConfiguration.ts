@@ -1,12 +1,12 @@
 import { TKLabel } from "@/domain/utils/TKLabel";
 import { TKLogoGroup } from "@/domain/utils/TKLogo";
-
 import { TKSurveyInfos } from "@/domain/opsmapConfig/TKSurveyInfos";
 import { TKLogo } from "@/domain/utils/TKLogo";
-
-import { TKFDFSpatialDescription } from "@/domain/fdf/TKFDFSpatialDescription";
-import { TKFDFIndicators } from "@/domain/fdf/TKFDFIndicators";
 import VueI18n from "vue-i18n";
+import {
+  TKSurveyAnonymousType,
+  TKSurveyOptions
+} from "@/domain/survey/TKSurvey";
 
 // ////////////////////////////////////////////////////////////////////////////
 // JSON format
@@ -18,6 +18,7 @@ interface TKAppOptions {
   readonly exportForEsite: boolean;
   readonly showDemoBanner: boolean;
   readonly exportAsCSVonHomePage: boolean;
+  readonly keepThematicOrderFromFDF: boolean;
 }
 interface TKIFrameDescription {
   readonly url: string;
@@ -30,6 +31,17 @@ interface TKMapboxConfiguration {
   readonly padding: 100;
   readonly zoomspeed: 2;
   readonly bounds: Array<number>;
+}
+
+export interface TKOpsmapSpatialConfiguration {
+  mapConfig: TKMapboxConfiguration;
+  dbConfig: {
+    adm1DBPcode: string;
+    adm2DBPcode: string;
+  };
+  localFiles: {
+    admin0LocalURL: string;
+  };
 }
 
 // ////////////////////////////////////////////////////////////////////////////
@@ -48,13 +60,11 @@ export interface TKOpsmapConfiguration {
   languageDefault: string;
   readonly iso3: string;
   readonly opsmapDescr: TKLabel;
-  readonly indicators: TKFDFIndicators;
+  readonly spatialConfiguration: TKOpsmapSpatialConfiguration;
   readonly footerLogos: TKLogoGroup[];
   readonly iframe?: TKIFrameDescription;
   readonly surveys: TKSurveyInfos[];
-  readonly spatial: TKFDFSpatialDescription;
   headerLogos: TKLogo[];
-  mapConfig: TKMapboxConfiguration;
   options: TKAppOptions;
 }
 
@@ -133,9 +143,9 @@ export async function TKReadGeneralConfiguration(
 
   // Init with defaultMApBoxConfig, then replace existing key with mapConfig.
   // Order matter !
-  json.mapConfig = {
+  json.spatialConfiguration.mapConfig = {
     ...defaultMapBoxConfig,
-    ...json.mapConfig
+    ...json.spatialConfiguration.mapConfig
   };
 
   // ////////////////////////////////////////////////////////////////////////////
@@ -151,21 +161,50 @@ export async function TKReadGeneralConfiguration(
   // ////////////////////////////////////////////////////////////////////////////
   // Options
   // ////////////////////////////////////////////////////////////////////////////
-  const defaultOptions: TKAppOptions = {
+
+  const defaultAppOptions: TKAppOptions = {
     showCCCMLogo: true,
     dark: false,
     pdfColumnCount: 3,
     exportForEsite: false,
     showDemoBanner: false,
-    exportAsCSVonHomePage: false
+    exportAsCSVonHomePage: false,
+    keepThematicOrderFromFDF: false
   };
 
   // Init with defaultOptions, then replace existing key with options.
   // Order matter !
   json.options = {
-    ...defaultOptions,
+    ...defaultAppOptions,
     ...json.options
   };
+
+  // ////////////////////////////////////////////////////////////////////////////
+  // Survey Options
+  // ////////////////////////////////////////////////////////////////////////////
+
+  // TODO: move manage by in another spot. Not an otion, more a description
+  const defaultSurveyOptions: TKSurveyOptions = {
+    dateFormat: "DD/MM/YYYY",
+    listSeparator: ";",
+    anonymousMode: TKSurveyAnonymousType.NONE
+  };
+
+  for (let i = 0; i < json.surveys.length; i++) {
+    json.surveys[i].options = {
+      ...defaultSurveyOptions,
+      ...json.surveys[i].options
+    };
+
+    // Force to global if lat or long are undefined
+    if (
+      !json.surveys[i].spatial.siteLatitudeField ||
+      !json.surveys[i].spatial.siteLongitudeField
+    ) {
+      json.surveys[i].options.anonymousMode =
+        TKSurveyAnonymousType.TEXT_AND_MAP;
+    }
+  }
 
   // ////////////////////////////////////////////////////////////////////////////
   // Return final json

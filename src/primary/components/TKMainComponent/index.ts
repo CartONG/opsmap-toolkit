@@ -1,5 +1,5 @@
 /**
- * This contains the map and the comboboxes. This is the "select a camp" part.
+ * This contains the map and the comboboxes. This is the "select a site" part.
  *
  * @module
  */

@@ -3,7 +3,13 @@
     <transition mode="out-in" name="fade-in">
       <div :key="$root.$i18n.locale" class="tk-footer-disclaimer">
         <div class="tk-footer-disclaimer-title">
-          <p>{{ $t("footer.moreInfos").toUpperCase() }}</p>
+          <p>
+            {{
+              $t("footer.moreInfos")
+                .toString()
+                .toUpperCase()
+            }}
+          </p>
         </div>
         <div class="tk-footer-disclaimer-text">
           <p>
@@ -76,14 +82,14 @@ export default class TKFooter extends Vue {
   color: var(--v-secondary-base);
   letter-spacing: 0.86px;
   min-width: 100px;
-  width: 10%;
+  width: 30%;
 }
 
 .tk-footer-disclaimer-text {
   font-size: 16px;
   color: var(--v-primary-base);
   line-height: 1.375;
-  width: 85%;
+  width: 65%;
   text-align: justify;
   text-justify: inter-word;
 }

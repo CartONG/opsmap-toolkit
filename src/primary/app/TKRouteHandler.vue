@@ -37,7 +37,7 @@ export default class TKRouteHandler extends Vue {
     this.updateDatasetFromUrl();
   }
 
-  // Triggered when a camp is selected
+  // Triggered when a site is selected
   @Watch("dataset.lastModification")
   onLastModificationChange() {
     this.updateUrlFromDataset();
@@ -58,16 +58,16 @@ export default class TKRouteHandler extends Vue {
   updateDatasetFromUrl() {
     if (this.$route.name === "home") {
       TKDatasetModule.dataset.currentAdmin1 = null;
-    } else if (this.$route.name === "camp") {
+    } else if (this.$route.name === "site") {
       const survey: string = this.$route.params["survey"] ?? "";
       const admin1: string = this.$route.params["admin1"] ?? "";
       const admin2: string = this.$route.params["admin2"] ?? "";
-      const camp: string = this.$route.params["camp"] ?? "";
+      const site: string = this.$route.params["site"] ?? "";
       const date: string = this.$route.params["date"]?.replaceAll("-", "/");
       if (survey) {
         TKDatasetModule.dataset.setCurrentSurveyByName(survey);
-        if (camp) {
-          TKDatasetModule.dataset.setCurrentCampByName(camp);
+        if (site) {
+          TKDatasetModule.dataset.setCurrentSiteByName(site);
           if (date) {
             TKDatasetModule.dataset.setSubmissionByDate(date);
           }
@@ -92,22 +92,22 @@ export default class TKRouteHandler extends Vue {
     const admin2E = encodeURIComponent(
       TKDatasetModule.dataset.currentAdmin2?.name ?? ""
     );
-    const campE = encodeURIComponent(
-      TKDatasetModule.dataset.currentCamp?.name ?? ""
+    const siteE = encodeURIComponent(
+      TKDatasetModule.dataset.currentSite?.name ?? ""
     );
     const dateE = encodeURIComponent(
       TKDatasetModule.dataset.currentSubmission?.date.replaceAll("/", "-") ?? ""
     );
 
-    let path = `/camp`;
+    let path = `/site`;
     if (surveyE) {
       path += `/${surveyE}`;
       if (admin1E) {
         path += `/${admin1E}`;
         if (admin2E) {
           path += `/${admin2E}`;
-          if (campE) {
-            path += `/${campE}`;
+          if (siteE) {
+            path += `/${siteE}`;
             if (dateE) {
               path += `/${dateE}`;
             }
@@ -120,7 +120,7 @@ export default class TKRouteHandler extends Vue {
     if (
       this.$route.path !== path &&
       this.$route.path !== path + "/" &&
-      !(!campE && this.$route.name === "home") // Prevent to camp page when no camp is selected
+      !(!siteE && this.$route.name === "home") // Prevent to site page when no site is selected
     ) {
       this.currentRoute = path;
       this.$router.push({

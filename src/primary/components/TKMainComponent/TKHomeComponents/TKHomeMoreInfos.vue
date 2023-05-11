@@ -2,7 +2,11 @@
   <div class="tk-home-moreinfos">
     <transition mode="out-in" name="fade-in">
       <div :key="$root.$i18n.locale" class="tk-home-moreinfos-title">
-        {{ $t("home.moreInfosTitle").toUpperCase() }}
+        {{
+          $t("home.moreInfosTitle")
+            .toString()
+            .toUpperCase()
+        }}
       </div>
     </transition>
     <transition mode="out-in" name="fade-in">
@@ -42,19 +46,12 @@ export default class TKHomeIndicators extends Vue {
   row-gap: 30px;
   justify-content: space-between;
   align-items: top;
-  border: 2px solid var(--v-border-base);
-  box-sizing: border-box;
-  background-color: var(--v-background-base);
   width: 100%;
-  padding-top: 42px;
-  padding-bottom: 42px;
-  padding-left: 30px;
-  padding-right: 30px;
 }
 
 .tk-home-moreinfos-title {
   display: block;
-  width: 10%;
+  width: 30%;
   font-weight: bold;
   font-size: 12px;
   color: var(--v-secondary-base);
@@ -63,7 +60,7 @@ export default class TKHomeIndicators extends Vue {
 }
 
 .tk-home-moreinfos-content {
-  width: 85%;
+  width: 65%;
   font-size: 16px;
   color: var(--v-primary-base);
   line-height: 1.375;

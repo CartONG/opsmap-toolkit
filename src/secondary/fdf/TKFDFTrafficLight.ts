@@ -27,7 +27,10 @@ export async function TKReadFDFTrafficLightsCollection(
 ): Promise<TKFDFTrafficLightsCollection> {
   const rawTrafficLights: TKFDFTrafficLightItem[] = await TKCSVParse<
     TKFDFTrafficLightItem[]
-  >(TKFDFFiles.TRAFFIC_LIGHTS, infos.folder, true);
+  >(
+    `${process.env.BASE_URL}/${infos.folder}/${TKFDFFiles.TRAFFIC_LIGHTS}.csv`,
+    true
+  );
 
   const trafficLights: TKFDFTrafficLightsCollection = {};
 

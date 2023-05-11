@@ -48,8 +48,8 @@ export default class TKHomeSubtitle extends Vue {
       let lastDate = "01/01/1970";
       for (const surveyIndex in TKDatasetModule.dataset.surveys) {
         const survey = TKDatasetModule.dataset.surveys[surveyIndex];
-        for (const camp of survey.camps) {
-          const dateCandidate = camp.submissions[0].date;
+        for (const site of survey.sites) {
+          const dateCandidate = site.submissions[0].date;
           if (TKDateCompare(lastDate, dateCandidate) > 0) {
             lastDate = dateCandidate;
           }

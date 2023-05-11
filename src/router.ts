@@ -1,12 +1,12 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import TKMainComponentLeftHome from "./primary/components/TKMainComponent/TKMainComponentLeftHome.vue";
-import TKMainComponentLeftCamp from "./primary/components/TKMainComponent/TKMainComponentLeftCamp.vue";
+import TKMainComponentLeftSite from "./primary/components/TKMainComponent/TKMainComponentLeftSite.vue";
 import TKMainComponentContentHome from "./primary/components/TKMainComponent/TKMainComponentContentHome.vue";
-import TKMainComponentContentCamp from "./primary/components/TKMainComponent/TKMainComponentContentCamp.vue";
+import TKMainComponentContentSite from "./primary/components/TKMainComponent/TKMainComponentContentSite.vue";
 import TKMainComponentIndicatorsHome from "./primary/components/TKMainComponent/TKMainComponentIndicatorsHome.vue";
-import TKMainComponentIndicatorsCamp from "./primary/components/TKMainComponent/TKMainComponentIndicatorsCamp.vue";
-import { TKCampSelector } from "./primary/components/TKMainComponent/TKCampComponents";
+import TKMainComponentIndicatorsSite from "./primary/components/TKMainComponent/TKMainComponentIndicatorsSite.vue";
+import { TKSiteSelector } from "./primary/components/TKMainComponent/TKSiteComponents";
 
 /*
 he default mode for vue-router is hash mode – it uses the URL hash to simulate a full URL so that the page won’t be reloaded when the URL changes.
@@ -28,13 +28,13 @@ const router = new VueRouter({
       }
     },
     {
-      path: "/camp/:survey/:admin1?/:admin2?/:camp?/:date?",
-      name: "camp",
+      path: "/site/:survey/:admin1?/:admin2?/:site?/:date?",
+      name: "site",
       components: {
-        header: TKCampSelector,
-        left: TKMainComponentLeftCamp,
-        indicators: TKMainComponentIndicatorsCamp,
-        content: TKMainComponentContentCamp
+        header: TKSiteSelector,
+        left: TKMainComponentLeftSite,
+        indicators: TKMainComponentIndicatorsSite,
+        content: TKMainComponentContentSite
       }
     },
     {

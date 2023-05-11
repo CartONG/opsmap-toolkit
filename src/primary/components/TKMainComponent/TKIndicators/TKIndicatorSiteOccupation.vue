@@ -39,7 +39,7 @@ import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { TKIndicatorSiteOccupation as TKIndicatorSiteOccupationType } from "@/domain/survey/TKIndicator";
 import { TKGetLocalValue } from "@/domain/utils/TKLabel";
 import { TKIndicatorType } from "@/domain/survey/TKIndicator";
-
+import { TKColors } from "@/domain/utils/TKColors";
 @Component
 export default class TKIndicatorSiteOccupation extends Vue {
   @Prop() readonly indicator!: TKIndicatorSiteOccupationType;
@@ -88,11 +88,12 @@ export default class TKIndicatorSiteOccupation extends Vue {
     }
   }
   get siteOccupationColor() {
-    if (this.value === undefined || this.value < 0) return "#E0E0E0";
-    if (this.value < 80) return "green";
-    if (this.value < 90) return "yellow";
-    if (this.value < 100) return "orange";
-    return "#e91d1d";
+    if (this.value === undefined || this.value < 0)
+      return TKColors.TRAFFICLIGHT_UNDEFINED;
+    if (this.value < 80) return TKColors.TRAFFICLIGHT_OK;
+    if (this.value < 90) return TKColors.TRAFFICLIGHT_WARNING;
+    if (this.value < 100) return TKColors.TRAFFICLIGHT_DANGER;
+    return TKColors.TRAFFICLIGHT_CRITICAL;
   }
 }
 </script>

@@ -6,7 +6,7 @@
     "manageBy": "Géré par",
     "selectText": "Choisis un",
     "survey": "Enquête",
-    "camp": "Camp",
+    "infosSite": "Site",
     "dashboardCredits": "Le project Opsmap est une solution opensource sous license MIT",
     "ochaCredits": "Les pictogrammes Humanitarian font sontsous licence CC BY 3.0",
     "appName": "Fiche de site",
@@ -45,7 +45,7 @@
         "subtitlePlaceholder": "Aucun site sélectionné",
         "extraTools": "Autres outils",
         "datePreffix": "Rapport",
-        "filter": "Filtre"
+        "filter": "Chercher.."
     },
     "charts": {
         "agePyramidTitle": "Pyramid des âges",
@@ -62,5 +62,9 @@
         "legendZoomOut": "Dézoomer",
         "legendBbox": "Etendue par défault",
         "legendFilters": "Montrer / masquer la légende"
+    },
+    "indicator": {
+        "siteCount": "Nombre de sites",
+        "peopleCount": "Nombre de personnes"
     }
 }

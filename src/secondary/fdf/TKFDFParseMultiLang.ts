@@ -1,6 +1,4 @@
-import { TKFDFInfos } from "@/domain/fdf/TKFDFInfos";
 import { TKFDFLabelCollection } from "@/domain/fdf/TKFDFParseMultiLang";
-import { TKReadRawDataGSheet } from "@/secondary/gsheet/TKReadRawDataGSheet";
 import { TKCSVParse } from "@/secondary/csv/TKCSV";
 
 // ////////////////////////////////////////////////////////////////////////////
@@ -50,21 +48,9 @@ async function parseCSVContent(
 // Method that creates the AnswerLabel object from the fdf folder
 // ////////////////////////////////////////////////////////////////////////////
 
-export async function TKReadFDFLabelCollectionFromGSheet(
+export async function TKReadFDFLabelCollection(
   url: string
 ): Promise<TKFDFLabelCollection> {
-  const rawLabels: TKFDFLabelRaw[] = await TKReadRawDataGSheet(url, false);
-  return parseCSVContent(rawLabels);
-}
-
-export async function TKReadFDFLabelCollection(
-  file: string,
-  infos: TKFDFInfos
-): Promise<TKFDFLabelCollection> {
-  const rawLabels: TKFDFLabelRaw[] = await TKCSVParse(
-    file,
-    infos.folder,
-    false
-  );
+  const rawLabels: TKFDFLabelRaw[] = await TKCSVParse(url, false);
   return parseCSVContent(rawLabels);
 }

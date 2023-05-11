@@ -124,10 +124,10 @@ export default class TKMapFilter extends Vue {
 
   show = true;
 
-  @Watch("dataset.filteredCampsList", { immediate: true })
+  @Watch("dataset.filteredSitesList", { immediate: true })
   updateCount() {
     for (let idx = 0; idx < this.sites.length; idx++) {
-      this.sites[idx].count = this.dataset.filteredCampsList.filter(
+      this.sites[idx].count = this.dataset.filteredSitesList.filter(
         site => site.type.formattedName === this.sites[idx].type
       ).length;
     }
@@ -136,17 +136,15 @@ export default class TKMapFilter extends Vue {
 </script>
 <style scoped>
 .tk-map-filters {
-  border-radius: 8px;
+  border-radius: 4px;
   overflow: hidden;
-  border: 2px solid var(--v-border-base);
+  border: 1px solid var(--v-border-base);
   background-color: var(--v-background-base);
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-start;
   align-items: center;
   row-gap: 10px;
-  box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2),
-    0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
 }
 
 .tk-map-filters-item {

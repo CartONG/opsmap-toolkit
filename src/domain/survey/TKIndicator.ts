@@ -3,6 +3,7 @@ import {
   TKFDFIndicator,
   TKFDFIndicatorType
 } from "@/domain/fdf/TKFDFIndicators";
+import { PEOPLE_COUNT_LABEL, SITE_COUNT_LABEL } from "./TKIndicatorLabels";
 
 export enum TKIndicatorType {
   STANDARD = "standard",
@@ -26,18 +27,7 @@ export interface TKIndicatorSiteOccupation {
 }
 
 export const SITE_COUNT_ICON = "IDP-refugee-camp";
-export const SITE_COUNT_LABEL: TKLabel = {
-  en: "Sites",
-  fr: "Nombre de sites",
-  pt: "Abrigos"
-};
-
 export const PEOPLE_COUNT_ICON = "People-in-need";
-export const PEOPLE_COUNT_LABEL: TKLabel = {
-  en: "Peoples",
-  fr: "Nombre de personnes",
-  pt: "Indivíduos"
-};
 
 export type TKIndicator = TKIndicatorStandard | TKIndicatorSiteOccupation;
 
@@ -66,6 +56,7 @@ export function TKIndicatorDefault(ref: TKFDFIndicator): TKIndicator {
         valueLabel: { en: "-" },
         iconOchaName: PEOPLE_COUNT_ICON
       };
+
     case TKFDFIndicatorType.STANDARD:
     case TKFDFIndicatorType.VALUE_COUNT:
     case TKFDFIndicatorType.COMPUTATION:

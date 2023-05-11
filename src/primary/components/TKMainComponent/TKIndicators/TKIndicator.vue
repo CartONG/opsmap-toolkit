@@ -1,5 +1,5 @@
 <template>
-  <div class="tk-indicator" :style="boxShadowColor">
+  <div class="tk-indicator">
     <img
       v-if="backgroundType === 1"
       class="tk-indicator-bg"
@@ -60,28 +60,17 @@ export default class TKIndicator extends Vue {
     // FontSize: 28px ok --> 23 charactères pour 330px;
     this.fontSize = 40;
   }
-
-  get boxShadowColor() {
-    if (this.$vuetify.theme.dark) {
-      return {
-        "--boxShadowColor": "#3a9ed326"
-      };
-    }
-
-    return {
-      "--boxShadowColor": "#123F6226"
-    };
-  }
 }
 </script>
 
 <style scoped>
 .tk-indicator {
   position: relative;
-  box-shadow: 0 0 20px 2px var(--boxShadowColor);
+  box-shadow: 0 3px 0px 0px var(--v-boxShadow-base);
   background-color: var(--v-background-base);
   border-color: transparent;
-  border-radius: 5px;
+  border-radius: 4px;
+  border: 1px solid var(--v-boxShadow-base);
   min-height: 100px;
   min-width: 300px;
   overflow: hidden;
@@ -91,7 +80,7 @@ export default class TKIndicator extends Vue {
   position: absolute;
   bottom: 0;
   right: 0;
-  width: 129px;
-  height: 63px;
+  max-width: 129px;
+  max-height: 63px;
 }
 </style>
